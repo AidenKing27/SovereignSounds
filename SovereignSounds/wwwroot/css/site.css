@@ -1,0 +1,368 @@
+/* --- Color Palette ---
+    #F2E9F8
+    #E9D9F3
+    #DCC1ED
+    #CFA8E6
+    #C290E0
+    #B578D6
+    #AF68CC
+    
+    #9C51B6
+    #8A46A2
+    #783C8E
+    #67317B
+    #552767
+    #431C53
+
+    #9B2D5D (btn-danger colour)
+    #908595 (btn-secondary colour)
+------------------------ */
+
+/* ==================== BASE & GLOBAL STYLES ==================== */
+
+* {
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    color: #431C53;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    margin-bottom: 60px;
+    color: #431C53;
+    background: #E9D9F3;
+}
+
+.link-title {
+    color: #783C8E;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+    .link-title:hover,
+    .link-title:focus {
+        text-decoration: none;
+        color: #E9D9F3 !important;
+        font-size: 140%;
+    }
+
+    .link-title:active {
+        text-decoration: none;
+        color: #E9D9F3 !important;
+        font-size: 140%;
+    }
+
+    .link-title:visited {
+        color: #67317B;
+    }
+
+a {
+    color: #783C8E;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+    a:hover,
+    a:focus {
+        color: #9C51B6;
+        text-decoration: underline;
+    }
+
+    a:active {
+        color: #552767;
+    }
+
+    a:visited {
+        color: #67317B;
+    }
+
+/* Global Focus Outline Override */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    /* Changed the last value from #258cfb to a purple from your palette */
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #9C51B6 !important;
+}
+
+/* ==================== LAYOUT (NAVBAR & FOOTER) ==================== */
+
+.navbar-light,
+.bg-white {
+    background-color: #E9D9F3 !important;
+    color: #431C53 !important;
+}
+
+.footer {
+    background-color: #E9D9F3 !important;
+    border-top: none !important;
+}
+
+.navbar {
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+.navbar-light .navbar-brand {
+    color: #431C53 !important;
+}
+
+/* Combined Nav Link & link-cstm Styles */
+.navbar-light .navbar-nav .nav-item .nav-link {
+    margin-right: 2px;
+    margin-left: 2px;
+    color: #783C8E !important;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+    /* MOVED: Visited must come before Hover/Focus/Active! */
+    .navbar-light .navbar-nav .nav-item .nav-link:visited {
+        color: #783C8E !important; /* Changed this back to the normal link color so it matches */
+    }
+
+    .navbar-light .navbar-nav .nav-item .nav-link:hover,
+    .navbar-light .navbar-nav .nav-item .nav-link:focus,
+    .navbar-light .navbar-nav .nav-item .nav-link:active {
+        text-decoration: none !important;
+        background-color: #67317B !important;
+        color: #E9D9F3 !important;
+    }
+
+.navbar-light .navbar-toggler {
+    border-color: #431C53 !important;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23431C53' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* ==================== BUTTONS ==================== */
+
+.btn-icon {
+    color: #E9D9F3 !important;
+}
+
+.btn-primary {
+    background-color: #67317B !important;
+    color: #E9D9F3 !important;
+    border: none !important;
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background-color: #552767 !important;
+        color: #E9D9F3 !important;
+        border: none !important;
+        text-decoration: none !important;
+    }
+
+    .btn-primary:active {
+        background-color: #431C53 !important;
+        color: #E9D9F3 !important;
+        border: none !important;
+    }
+
+.btn-secondary {
+    background-color: #908595 !important;
+    color: #E9D9F3 !important;
+    border: none !important;
+}
+
+    .btn-secondary:hover,
+    .btn-secondary:focus {
+        background-color: #7b727f !important;
+        color: #E9D9F3 !important;
+        border: none !important;
+        text-decoration: none !important;
+    }
+
+    .btn-secondary:active {
+        background-color: #625a66 !important;
+        color: #E9D9F3 !important;
+        border: none !important;
+    }
+
+.btn-danger {
+    background-color: #9B2D5D !important;
+    color: #E9D9F3 !important;
+    border: none !important;
+}
+
+    .btn-danger:hover,
+    .btn-danger:focus {
+        background-color: #782147 !important;
+        color: #E9D9F3 !important;
+        border: none !important;
+        text-decoration: none !important;
+    }
+
+    .btn-danger:active {
+        background-color: #5A1935 !important;
+        color: #E9D9F3 !important;
+        border: none !important;
+    }
+
+.btn-link {
+    color: #783C8E !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+    .btn-link:hover,
+    .btn-link:focus {
+        color: #9C51B6 !important;
+        text-decoration: underline !important;
+    }
+
+    .btn-link:active {
+        color: #552767 !important;
+    }
+
+/* ==================== FORMS & INPUTS ==================== */
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+.form-control {
+    background-color: #E9D9F3;
+    color: #431C53;
+    border: 1px solid #CFA8E6;
+}
+
+    .form-control:focus {
+        background-color: #F2E9F8;
+        color: #431C53;
+        border-color: #9C51B6;
+        box-shadow: 0 0 0 0.25rem rgba(156, 81, 182, 0.25) !important;
+    }
+
+    .form-control::placeholder {
+        color: #AF68CC;
+        opacity: 1;
+    }
+
+    .form-control:disabled,
+    .form-control[readonly] {
+        background-color: #DCC1ED;
+        border-color: #CFA8E6;
+        opacity: 1;
+    }
+
+    .form-control:-webkit-autofill,
+    .form-control:-webkit-autofill:hover,
+    .form-control:-webkit-autofill:focus,
+    .form-control:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px #E9D9F3 inset !important;
+        -webkit-text-fill-color: #431C53 !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
+        .form-control:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0 30px #F2E9F8 inset !important;
+        }
+
+.form-check-input {
+    background-color: #E9D9F3;
+}
+
+/* ==================== CARDS ==================== */
+
+.card {
+    border: none;
+    background-color: #DCC1ED;
+}
+
+.card-header {
+    background-color: #CFA8E6;
+    color: #431C53;
+    border: none;
+}
+
+.card-body {
+    background-color: #DCC1ED;
+    color: #431C53;
+    border: none;
+}
+
+.card-footer {
+    background-color: #CFA8E6;
+    color: #431C53;
+    border: none;
+}
+
+/* ==================== MODALS ==================== */
+
+.modal-content {
+    background-color: #DCC1ED;
+    border: 1px solid #9C51B6;
+}
+
+.modal-header {
+    background-color: #CFA8E6;
+    color: #431C53;
+    border-bottom: 1px solid #9C51B6;
+}
+
+.modal-body {
+    background-color: #DCC1ED;
+    color: #431C53;
+}
+
+.modal-footer {
+    background-color: #CFA8E6;
+    color: #431C53;
+    border-top: 1px solid #9C51B6;
+}
+
+/* ==================== NAVIGATION PILLS (Account Manage) ==================== */
+
+.nav-pills .nav-link {
+    color: #431C53;
+    font-weight: 500;
+}
+
+    .nav-pills .nav-link:hover,
+    .nav-pills .nav-link:focus {
+        color: #783C8E;
+        background-color: #E9D9F3;
+    }
+
+    .nav-pills .nav-link.active,
+    .nav-pills .show > .nav-link {
+        background-color: #67317B;
+        color: #E9D9F3 !important;
+    }
+
+/* ==================== NAVIGATION PILLS (Account Manage) ==================== */
+
+.deco-img {
+    background-image: url(../images/music_big.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 200px;
+    width: 100%;
+}

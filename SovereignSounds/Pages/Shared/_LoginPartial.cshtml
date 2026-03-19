@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link btn btn-sm" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage Profile">
+                <span class="bi bi-person-fill fs-5"></span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <button type="button" class="nav-link btn btn-link" title="Logout" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                <span class="bi bi-door-open-fill fs-5"></span>
+            </button>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link btn btn-sm" asp-area="Identity" asp-page="/Account/Register" title="Register">
+                <span class="bi bi-person-plus-fill fs-5"></span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link btn btn-sm" asp-area="Identity" asp-page="/Account/Login" title="Login">
+                <span class="bi bi-person-circle fs-5"></span>
+            </a>
+        </li>
+    }
+</ul>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog text-dark">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span>Are you sure you want to log out?</span>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                            <form class="m-0 p-0" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post">
+                                <button type="submit" class="btn btn-danger">Log Out</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

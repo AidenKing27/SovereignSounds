@@ -1,0 +1,60 @@
+﻿@page
+@model SovereignSounds.Pages.Music.Albums.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Album</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Album.Id" />
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Album.Title" class="control-label"></label>
+                <input asp-for="Album.Title" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Album.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Album.Artist" class="control-label"></label>
+                <input asp-for="Album.Artist" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Album.Artist" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Album.ReleaseDate" class="control-label"></label>
+                <input asp-for="Album.ReleaseDate" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Album.ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Album.Price" class="control-label"></label>
+                <input asp-for="Album.Price" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Album.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Album.Picture" class="control-label"></label>
+                <input asp-for="Album.Picture" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Album.Picture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
