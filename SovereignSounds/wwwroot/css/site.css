@@ -153,6 +153,32 @@ a {
 
 /* ==================== BUTTONS ==================== */
 
+.btn-toggle {
+    background-color: #DCC1ED !important; /*unchecked*/
+    color: #431C53 !important;
+    border: none !important;
+}
+
+.btn-check:checked + .btn-toggle {
+    background-color: #67317B !important; /*checked*/
+    color: #E9D9F3 !important;
+    border: none !important;
+}
+
+.btn-toggle:hover {
+    background-color: #C290E0 !important;
+    color: #431C53 !important;
+    border: none !important;
+}
+
+.btn-toggle .btn-icon {
+    color: #431C53 !important;
+}
+
+.btn-check:checked + .btn-toggle .btn-icon {
+    color: #E9D9F3 !important;
+}
+
 .btn-icon {
     color: #E9D9F3 !important;
 }

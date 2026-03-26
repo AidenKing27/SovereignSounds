@@ -1,11 +1,11 @@
 ﻿@page
-@model SovereignSounds.Pages.Music.Songs.IndexModel
+@model SovereignSounds.Pages.Music.Albums.ViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "View";
 }
 
-<h1>Index</h1>
+<h1>View</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,38 +14,26 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Song[0].Album)
+                @Html.DisplayNameFor(model => model.Album[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Song[0].Duration)
+                @Html.DisplayNameFor(model => model.Album[0].Artist)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Song[0].Title)
+                @Html.DisplayNameFor(model => model.Album[0].ReleaseDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Song[0].Artist)
+                @Html.DisplayNameFor(model => model.Album[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Song[0].ReleaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Song[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Song[0].Picture)
+                @Html.DisplayNameFor(model => model.Album[0].Picture)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Song) {
+@foreach (var item in Model.Album) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Album.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>

@@ -8,22 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using SovereignSounds.Data;
 using SovereignSounds.Models;
 
-namespace SovereignSounds.Pages.Music.Albums
+namespace SovereignSounds.Pages.Music.Genres
 {
-    public class IndexModel : PageModel
+    public class ViewModel : PageModel
     {
         private readonly SovereignSounds.Data.ApplicationDbContext _context;
 
-        public IndexModel(SovereignSounds.Data.ApplicationDbContext context)
+        public ViewModel(SovereignSounds.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IList<Album> Album { get;set; } = default!;
+        public IList<Genre> Genre { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Album = await _context.Albums.ToListAsync();
+            Genre = await _context.Genres.ToListAsync();
         }
     }
 }
