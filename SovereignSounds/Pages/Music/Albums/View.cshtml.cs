@@ -8,22 +8,32 @@ using Microsoft.EntityFrameworkCore;
 using SovereignSounds.Data;
 using SovereignSounds.Models;
 
-namespace SovereignSounds.Pages.Music.Albums
+namespace SovereignSounds.Pages.Music.Albums;
+
+public class ViewModel : PageModel
 {
-    public class ViewModel : PageModel
+    [BindProperty]
+    public ListStyle ListStyle { get; set; }
+
+    private readonly SovereignSounds.Data.ApplicationDbContext _context;
+
+    public ViewModel(SovereignSounds.Data.ApplicationDbContext context)
     {
-        private readonly SovereignSounds.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public ViewModel(SovereignSounds.Data.ApplicationDbContext context)
-        {
-            _context = context;
-        }
+    public IList<Album> Album { get; set; } = default!;
 
-        public IList<Album> Album { get;set; } = default!;
+    public async Task OnGetAsync(ListStyle style)
+    {
+        ListStyle = style;
+        Album = await _context.Albums
+            .Include(a => a.Songs)
+            .ToListAsync();
+    }
 
-        public async Task OnGetAsync()
-        {
-            Album = await _context.Albums.ToListAsync();
-        }
+    public IActionResult OnPostSetListStyle(ListStyle style)
+    {
+        return RedirectToPage(new { style });
     }
 }

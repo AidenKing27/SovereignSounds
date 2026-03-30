@@ -3,5 +3,6 @@
 public enum ListStyle
 {
     List,
-    Grid
+    Grid,
+    Compact
 }
