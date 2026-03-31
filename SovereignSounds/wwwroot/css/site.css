@@ -97,6 +97,12 @@ a {
 
 /* ==================== LAYOUT (NAVBAR & FOOTER) ==================== */
 
+@media (min-width: 1400px) {
+    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 1400px;
+    }
+}
+
 .navbar-light,
 .bg-white {
     background-color: #E9D9F3 !important;
