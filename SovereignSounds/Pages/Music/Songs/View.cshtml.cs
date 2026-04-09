@@ -12,9 +12,6 @@ namespace SovereignSounds.Pages.Music.Songs;
 
 public class ViewModel : PageModel
 {
-    [BindProperty]
-    public ListStyle ListStyle { get; set; }
-
     private readonly ApplicationDbContext _context;
 
     public ViewModel(ApplicationDbContext context)
@@ -22,16 +19,30 @@ public class ViewModel : PageModel
         _context = context;
     }
 
+    [BindProperty(SupportsGet = true)]
+    public string Search { get; set; } = string.Empty;
+
+    [BindProperty]
+    public ListStyle ListStyle { get; set; }
+
     public IList<Song> Songs { get; set; } = default!;
 
     public async Task OnGetAsync(ListStyle style)
     {
         ListStyle = style;
-        Songs = await _context.Songs
+
+        var query = _context.Songs
             .Include(s => s.Album)
             .Include(s => s.Genres)
             .OrderBy(s => s.Title)
-            .ToListAsync();
+            .AsQueryable();
+
+        if (!string.IsNullOrEmpty(Search))
+        {
+            query = query.Where(s => s.Title.Contains(Search));
+        }
+
+        Songs = await query.ToListAsync();
     }
 
     public IActionResult OnPostSetListStyle(ListStyle style)

@@ -4,6 +4,18 @@
 @{
     ViewData["Title"] = "Songs";
     var isAdmin = User.IsInRole("Admin");
+
+    static string Truncate(string? value, int maxLength = 20)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return string.Empty;
+        }
+
+        return value.Length <= maxLength
+            ? value
+            : $"{value[..maxLength]}…";
+    }
 }
 
 <div class="row">
@@ -54,7 +66,7 @@
                             </div>
                         </form>
                         <form method="get" class="d-flex align-items-center gap-2">
-                            <input class="form-control w-auto" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control w-auto" name="search" value="@Model.Search" type="text" placeholder="Search..." aria-label="Search">
                             <button class="btn btn-outline-primary" type="submit">Search</button>
                         </form>
                     </div>
@@ -75,14 +87,19 @@
                             @foreach (var item in Model.Songs)
                             {
                                 <div class="col-xxl-4 col-lg-6 col-12 d-flex justify-content-center">
-                                    <a asp-page="./Details" asp-route-id="@item.Id" class="text-reset text-decoration-none">
-                                        <div class="card-custom text-center" role="button" style="cursor: pointer;">
-                                            <img src="@item.Picture" alt="@item.Title" />
-                                            <div class="pt-2 pb-2">
-                                                @Html.DisplayFor(modelItem => item.Artist) - @Html.DisplayFor(modelItem => item.Title)
-                                            </div>
+                                    <div class="song-grid-card position-relative">
+                                        <div class="price-badge price-highlight">
+                                            @Html.DisplayFor(modelItem => item.Price)
                                         </div>
-                                    </a>
+                                        <a asp-page="./Details" asp-route-id="@item.Id" class="text-reset text-decoration-none d-block">
+                                            <div class="card-custom text-center" role="button" style="cursor: pointer;">
+                                                <img src="@item.Picture" alt="@item.Title" loading="lazy" />
+                                                <div class="pt-2 pb-2">
+                                                    <span style="font-weight: 600; font-size: 1.1em">@Html.DisplayFor(modelItem => item.Title)</span> - <span style="font-weight: inherit; opacity: 0.75">@Html.DisplayFor(modelItem => item.Artist)</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -94,53 +111,38 @@
                                 @if (isAdmin)
                                 {
                                     <colgroup>
-                                        <col style="width: 8%;" />   @* Picture *@
-                                        <col style="width: 14%;" />  @* Title *@
-                                        <col style="width: 12%;" />  @* Album *@
-                                        <col style="width: 12%;" />  @* Artist *@
-                                        <col style="width: 14%;" />  @* Genres *@
-                                        <col style="width: 12%;" />  @* ReleaseDate *@
-                                        <col style="width: 8%;" />   @* Price *@
+                                        <col style="width: 10%;" />  @* Picture *@
+                                        <col style="width: 24%;" />  @* Song *@
+                                        <col style="width: 20%;" />  @* Album *@
                                         <col style="width: 8%;" />   @* Duration *@
-                                        <col style="width: 12%;" />  @* Actions *@
+                                        <col style="width: 8%;" />   @* Price *@
+                                        <col style="width: 10%;" />  @* Actions *@
                                     </colgroup>
                                 }
                                 else
                                 {
                                     <colgroup>
-                                        <col style="width: 8%;" />   @* Picture *@
-                                        <col style="width: 15%;" />  @* Title *@
-                                        <col style="width: 15%;" />  @* Album *@
-                                        <col style="width: 15%;" />  @* Artist *@
-                                        <col style="width: 18%;" />  @* Genres *@
-                                        <col style="width: 12%;" />  @* ReleaseDate *@
-                                        <col style="width: 8%;" />   @* Price *@
-                                        <col style="width: 9%;" />   @* Duration *@
+                                        <col style="width: 8%;" />  @* Picture *@
+                                        <col style="width: 37%;" />  @* Song *@
+                                        <col style="width: 25%;" />  @* Album *@
+                                        <col style="width: 20%;" />   @* Duration *@
+                                        <col style="width: 10%;" />   @* Price *@
                                     </colgroup>
                                 }
                                 <thead>
                                     <tr>
                                         <th></th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Songs[0].Title)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Songs[0].Album)
+                                            Song
                                         </th>
                                         <th>
                                             @Html.DisplayNameFor(model => model.Songs[0].Artist)
                                         </th>
-                                        <th>
-                                            Genres
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Songs[0].ReleaseDate)
+                                        <th class="text-center">
+                                            @Html.DisplayNameFor(model => model.Songs[0].Duration)
                                         </th>
                                         <th class="text-center">
                                             @Html.DisplayNameFor(model => model.Songs[0].Price)
-                                        </th>
-                                        <th class="text-center">
-                                            @Html.DisplayNameFor(model => model.Songs[0].Duration)
                                         </th>
                                         @if (isAdmin)
                                         {
@@ -154,45 +156,28 @@
                                         <tr>
                                             <td class="position-relative">
                                                 <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    <img class="img-fluid" src="@item.Picture" alt="@item.Title" width="75" height="75" />
+                                                    <img class="img-fluid" src="@item.Picture" alt="@item.Title" loading="lazy" width="75" height="75" />
                                                 </a>
                                             </td>
                                             <td class="position-relative">
                                                 <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @Html.DisplayFor(modelItem => item.Title)
+                                                    <div class="text-reset" style="font-weight: 600; font-size: 1.1em">@Truncate(item.Title, 40)</div>
+                                                    <div class="text-reset" style="font-weight: inherit; opacity: 0.6">@Truncate(item.Album.Title, 40)</div>
                                                 </a>
                                             </td>
                                             <td class="position-relative">
                                                 <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @Html.DisplayFor(modelItem => item.Album.Title)
-                                                </a>
-                                            </td>
-                                            <td class="position-relative">
-                                                <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @Html.DisplayFor(modelItem => item.Artist)
-                                                </a>
-                                            </td>
-                                            <td class="position-relative">
-                                                <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @foreach (var genre in item.Genres)
-                                                    {
-                                                        <div class="text-reset">@genre.Name</div>
-                                                    }
-                                                </a>
-                                            </td>
-                                            <td class="position-relative">
-                                                <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @Html.DisplayFor(modelItem => item.ReleaseDateDisplay)
-                                                </a>
-                                            </td>
-                                            <td class="text-center position-relative">
-                                                <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @Html.DisplayFor(modelItem => item.Price)
+                                                    @Truncate(item.Artist, 30)
                                                 </a>
                                             </td>
                                             <td class="text-center position-relative">
                                                 <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
                                                     @Html.DisplayFor(modelItem => item.DurationDisplay)
+                                                </a>
+                                            </td>
+                                            <td class="text-center position-relative">
+                                                <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none price-highlight">
+                                                    @Html.DisplayFor(modelItem => item.Price)
                                                 </a>
                                             </td>
                                             @if (isAdmin)
@@ -219,24 +204,24 @@
                                 @if (isAdmin)
                                 {
                                     <colgroup>
-                                        <col style="width: 20%;" />  @* Title *@
-                                        <col style="width: 16%;" />  @* Album *@
-                                        <col style="width: 16%;" />  @* Artist *@
-                                        <col style="width: 16%;" />  @* ReleaseDate *@
-                                        <col style="width: 10%;" />  @* Price *@
+                                        <col style="width: 22%;" />  @* Title *@
+                                        <col style="width: 18%;" />  @* Album *@
+                                        <col style="width: 18%;" />  @* Artist *@
+                                        <col style="width: 22%;" />  @* ReleaseDate *@
                                         <col style="width: 10%;" />  @* Duration *@
-                                        <col style="width: 12%;" />  @* Actions *@
+                                        <col style="width: 10%;" />  @* Price *@
+                                        <col style="width: 10%;" />  @* Actions *@
                                     </colgroup>
                                 }
                                 else
                                 {
                                     <colgroup>
-                                        <col style="width: 22%;" />  @* Title *@
-                                        <col style="width: 20%;" />  @* Album *@
+                                        <col style="width: 25%;" />  @* Title *@
+                                        <col style="width: 25%;" />  @* Album *@
                                         <col style="width: 20%;" />  @* Artist *@
-                                        <col style="width: 20%;" />  @* ReleaseDate *@
-                                        <col style="width: 9%;" />   @* Price *@
-                                        <col style="width: 9%;" />   @* Duration *@
+                                        <col style="width: 10%;" />  @* ReleaseDate *@
+                                        <col style="width: 10%;" />   @* Duration *@
+                                        <col style="width: 10%;" />   @* Price *@
                                     </colgroup>
                                 }
                                 <thead>
@@ -245,19 +230,19 @@
                                             @Html.DisplayNameFor(model => model.Songs[0].Title)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Songs[0].Album)
+                                            @Html.DisplayNameFor(model => model.Songs[0].Artist)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Songs[0].Artist)
+                                            @Html.DisplayNameFor(model => model.Songs[0].Album)
                                         </th>
                                         <th>
                                             @Html.DisplayNameFor(model => model.Songs[0].ReleaseDate)
                                         </th>
                                         <th class="text-center">
-                                            @Html.DisplayNameFor(model => model.Songs[0].Price)
+                                            @Html.DisplayNameFor(model => model.Songs[0].Duration)
                                         </th>
                                         <th class="text-center">
-                                            @Html.DisplayNameFor(model => model.Songs[0].Duration)
+                                            @Html.DisplayNameFor(model => model.Songs[0].Price)
                                         </th>
                                         @if (isAdmin)
                                         {
@@ -276,12 +261,12 @@
                                             </td>
                                             <td class="position-relative">
                                                 <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @Html.DisplayFor(modelItem => item.Album.Title)
+                                                    @Html.DisplayFor(modelItem => item.Artist)
                                                 </a>
                                             </td>
                                             <td class="position-relative">
                                                 <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @Html.DisplayFor(modelItem => item.Artist)
+                                                    @Html.DisplayFor(modelItem => item.Album.Title)
                                                 </a>
                                             </td>
                                             <td class="position-relative">
@@ -291,12 +276,12 @@
                                             </td>
                                             <td class="text-center position-relative">
                                                 <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @Html.DisplayFor(modelItem => item.Price)
+                                                    @Html.DisplayFor(modelItem => item.DurationDisplay)
                                                 </a>
                                             </td>
                                             <td class="text-center position-relative">
                                                 <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @Html.DisplayFor(modelItem => item.DurationDisplay)
+                                                    @Html.DisplayFor(modelItem => item.Price)
                                                 </a>
                                             </td>
                                             @if (isAdmin)
