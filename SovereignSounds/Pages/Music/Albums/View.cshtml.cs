@@ -15,20 +15,21 @@ public class ViewModel : PageModel
     [BindProperty]
     public ListStyle ListStyle { get; set; }
 
-    private readonly SovereignSounds.Data.ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public ViewModel(SovereignSounds.Data.ApplicationDbContext context)
+    public ViewModel(ApplicationDbContext context)
     {
         _context = context;
     }
 
-    public IList<Album> Album { get; set; } = default!;
+    public IList<Album> Albums { get; set; } = default!;
 
     public async Task OnGetAsync(ListStyle style)
     {
         ListStyle = style;
-        Album = await _context.Albums
+        Albums = await _context.Albums
             .Include(a => a.Songs)
+            .Include(a => a.Genres)
             .ToListAsync();
     }
 
