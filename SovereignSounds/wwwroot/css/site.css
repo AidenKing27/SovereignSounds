@@ -6,14 +6,12 @@
     --ss-lilac-400: #C290E0;
     --ss-lilac-500: #B578D6;
     --ss-lilac-600: #AF68CC;
-
     --ss-purple-500: #9C51B6;
     --ss-purple-600: #8A46A2;
     --ss-purple-700: #783C8E;
     --ss-purple-800: #67317B;
     --ss-purple-900: #552767;
     --ss-purple-950: #431C53;
-
     --ss-danger: #9B2D5D;
     --ss-danger-hover: #782147;
     --ss-danger-active: #5A1935;
@@ -24,6 +22,7 @@
 }
 
 /* ==================== BASE & GLOBAL STYLES ==================== */
+/* #region BASE & GLOBAL STYLES */
 
 * {
     font-family: "Fredoka", sans-serif;
@@ -48,32 +47,8 @@ html {
 
 body {
     margin-bottom: 60px;
-    color: var(--ss-purple-950);
     background: var(--ss-lilac-100);
 }
-
-.link-title {
-    color: var(--ss-purple-700);
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-}
-
-    .link-title:hover,
-    .link-title:focus {
-        text-decoration: none;
-        color: var(--ss-lilac-100) !important;
-        font-size: 140%;
-    }
-
-    .link-title:active {
-        text-decoration: none;
-        color: var(--ss-lilac-100) !important;
-        font-size: 140%;
-    }
-
-    .link-title:visited {
-        color: var(--ss-purple-800);
-    }
 
 a {
     color: var(--ss-purple-700);
@@ -84,7 +59,6 @@ a {
     a:hover,
     a:focus {
         color: var(--ss-purple-500);
-        text-decoration: underline;
     }
 
     a:active {
@@ -103,11 +77,38 @@ a {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--ss-purple-500) !important;
 }
 
-/* ==================== LAYOUT (NAVBAR & FOOTER) ==================== */
+/* #endregion */
 
-@media (min-width: 1500px) {
+/* ==================== LAYOUT (NAVBAR & FOOTER) ==================== */
+/* #region LAYOUT (NAVBAR & FOOTER) */
+
+.link-title {
+    color: #783C8E;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+    .link-title:hover,
+    .link-title:focus {
+        text-decoration: none;
+        color: #E9D9F3 !important;
+        font-size: 140%;
+    }
+
+    .link-title:active {
+        text-decoration: none;
+        color: #E9D9F3 !important;
+        font-size: 140%;
+    }
+
+    .link-title:visited {
+        color: #67317B;
+    }
+
+@media (min-width: 1400px) {
     .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-        max-width: 1500px;
+        max-width: 1400px;
     }
 }
 
@@ -134,7 +135,7 @@ a {
 .navbar-light .navbar-nav .nav-item .nav-link {
     margin-right: 2px;
     margin-left: 2px;
-    color: var(--ss-purple-700) !important;
+    color: var(--ss-purple-900) !important;
     text-decoration: none;
     font-weight: 500;
     border-radius: 6px;
@@ -142,14 +143,14 @@ a {
 }
 
     .navbar-light .navbar-nav .nav-item .nav-link:visited {
-        color: var(--ss-purple-700) !important;
+        color: var(--ss-purple-900) !important;
     }
 
     .navbar-light .navbar-nav .nav-item .nav-link:hover,
     .navbar-light .navbar-nav .nav-item .nav-link:focus,
     .navbar-light .navbar-nav .nav-item .nav-link:active {
         text-decoration: none !important;
-        background-color: var(--ss-purple-800) !important;
+        background-color: var(--ss-purple-900) !important;
         color: var(--ss-lilac-100) !important;
     }
 
@@ -161,7 +162,10 @@ a {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23431C53' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
+/* #endregion */
+
 /* ==================== BUTTONS ==================== */
+/* #region BUTTONS */
 
 .btn-toggle {
     background-color: var(--ss-lilac-200) !important; /*unchecked*/
@@ -217,19 +221,19 @@ a {
         text-decoration: none !important;
     }
 
-    .btn-primary:hover,
-    .btn-primary:focus {
-        background-color: var(--ss-purple-900) !important;
-        color: var(--ss-lilac-100) !important;
-        border: none !important;
-        text-decoration: none !important;
-    }
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--ss-purple-900) !important;
+    color: var(--ss-lilac-100) !important;
+    border: none !important;
+    text-decoration: none !important;
+}
 
-    .btn-primary:active {
-        background-color: var(--ss-purple-950) !important;
-        color: var(--ss-lilac-100) !important;
-        border: none !important;
-    }
+.btn-primary:active {
+    background-color: var(--ss-purple-950) !important;
+    color: var(--ss-lilac-100) !important;
+    border: none !important;
+}
 
 .btn-secondary {
     background-color: var(--ss-secondary) !important;
@@ -255,19 +259,19 @@ a {
         text-decoration: none !important;
     }
 
-    .btn-secondary:hover,
-    .btn-secondary:focus {
-        background-color: var(--ss-secondary-hover) !important;
-        color: var(--ss-lilac-100) !important;
-        border: none !important;
-        text-decoration: none !important;
-    }
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background-color: var(--ss-secondary-hover) !important;
+    color: var(--ss-lilac-100) !important;
+    border: none !important;
+    text-decoration: none !important;
+}
 
-    .btn-secondary:active {
-        background-color: var(--ss-secondary-active) !important;
-        color: var(--ss-lilac-100) !important;
-        border: none !important;
-    }
+.btn-secondary:active {
+    background-color: var(--ss-secondary-active) !important;
+    color: var(--ss-lilac-100) !important;
+    border: none !important;
+}
 
 .btn-danger {
     background-color: var(--ss-danger) !important;
@@ -305,7 +309,10 @@ a {
         color: var(--ss-purple-900) !important;
     }
 
+/* #endregion */
+
 /* ==================== FORMS & INPUTS ==================== */
+/* #region FORMS & INPUTS */
 
 .form-floating > .form-control-plaintext::placeholder,
 .form-floating > .form-control::placeholder {
@@ -360,7 +367,10 @@ a {
     background-color: var(--ss-lilac-100);
 }
 
+/* #endregion */
+
 /* ==================== CARDS ==================== */
+/* #region CARDS */
 
 .card {
     border: none;
@@ -385,7 +395,10 @@ a {
     border: none;
 }
 
+/* #endregion */
+
 /* ==================== MODALS ==================== */
+/* #region MODALS */
 
 .modal-content {
     background-color: var(--ss-lilac-200);
@@ -409,7 +422,10 @@ a {
     border-top: 1px solid var(--ss-purple-500);
 }
 
-/* ==================== DECORATIVE IMAGE ==================== */
+/* #endregion */
+
+/* ==================== NAVIGATION PILLS (Account Manage) ==================== */
+/* #region NAVIGATION PILLS (Account Manage) */
 
 .nav-pills .nav-link {
     color: var(--ss-purple-950);
@@ -428,7 +444,10 @@ a {
         color: var(--ss-lilac-100) !important;
     }
 
-/* ==================== NAVIGATION PILLS (Account Manage) ==================== */
+/* #endregion */
+
+/* ==================== DECORATIVE IMAGE ==================== */
+/* #region DECORATIVE IMAGE */
 
 .deco-img {
     background-image: url(../images/music_big.png);
@@ -439,7 +458,10 @@ a {
     width: 100%;
 }
 
+/* #endregion */
+
 /* ==================== TABLE ==================== */
+/* #region TABLE */
 
 .table {
     --bs-table-color: var(--ss-purple-950) !important;
@@ -456,6 +478,20 @@ a {
     background-color: var(--ss-purple-900) !important;
 }
 
+/* #endregion */
+
+/* ==================== MUSIC CARDS & LISTS ==================== */
+/* #region MUSIC CARDS & LISTS */
+
+.card-hover {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+    .card-hover:hover,
+    .card-hover:focus {
+        transform: scale(1.05);
+    }
+
 .card-custom {
     padding: 15px;
     border-radius: 10px;
@@ -464,31 +500,615 @@ a {
     flex-shrink: 0;
 }
 
-.card-grid-item {
-    padding: 15px;
-}
-
-.music-list-table {
+.music-table {
     table-layout: fixed;
     width: 100%;
 }
 
-.price-highlight {
+.music-table-list,
+.music-table-compact {
+    font-size: 0.9rem;
+}
+
+.music-primary-text {
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.music-secondary-text {
+    font-weight: inherit;
+    opacity: 0.6;
+}
+
+.music-secondary-text-grid {
+    opacity: 0.75;
+}
+
+/* #endregion */
+
+/* ==================== TABLE COLUMN WIDTHS ==================== */
+/* #region TABLE COLUMN WIDTHS */
+
+.music-table-list-songs.music-table-list-admin .col-picture {
+    width: 10%;
+}
+
+.music-table-list-songs.music-table-list-admin .col-primary {
+    width: 33%;
+}
+
+.music-table-list-songs.music-table-list-admin .col-secondary {
+    width: 20%;
+}
+
+.music-table-list-songs.music-table-list-admin .col-tertiary {
+    width: 13%;
+}
+
+.music-table-list-songs.music-table-list-admin .col-price {
+    width: 12%;
+}
+
+.music-table-list-songs.music-table-list-admin .col-actions {
+    width: 12%;
+}
+
+.music-table-list-songs.music-table-list-user .col-picture {
+    width: 10%;
+}
+
+.music-table-list-songs.music-table-list-user .col-primary {
+    width: 39%;
+}
+
+.music-table-list-songs.music-table-list-user .col-secondary {
+    width: 24%;
+}
+
+.music-table-list-songs.music-table-list-user .col-tertiary {
+    width: 14%;
+}
+
+.music-table-list-songs.music-table-list-user .col-price {
+    width: 13%;
+}
+
+.music-table-compact-songs.music-table-compact-admin .col-primary {
+    width: 21%;
+}
+
+.music-table-compact-songs.music-table-compact-admin .col-secondary {
+    width: 18%;
+}
+
+.music-table-compact-songs.music-table-compact-admin .col-tertiary {
+    width: 18%;
+}
+
+.music-table-compact-songs.music-table-compact-admin .col-quaternary {
+    width: 15%;
+}
+
+.music-table-compact-songs.music-table-compact-admin .col-quinary {
+    width: 11%;
+}
+
+.music-table-compact-songs.music-table-compact-admin .col-price {
+    width: 8%;
+}
+
+.music-table-compact-songs.music-table-compact-admin .col-actions {
+    width: 8%;
+}
+
+.music-table-compact-songs.music-table-compact-user .col-primary {
+    width: 26%;
+}
+
+.music-table-compact-songs.music-table-compact-user .col-secondary {
+    width: 22%;
+}
+
+.music-table-compact-songs.music-table-compact-user .col-tertiary {
+    width: 21%;
+}
+
+.music-table-compact-songs.music-table-compact-user .col-quaternary {
+    width: 14%;
+}
+
+.music-table-compact-songs.music-table-compact-user .col-quinary {
+    width: 9%;
+}
+
+.music-table-compact-songs.music-table-compact-user .col-price {
+    width: 8%;
+}
+
+.music-table-list-albums.music-table-list-admin .col-picture {
+    width: 10%;
+}
+
+.music-table-list-albums.music-table-list-admin .col-primary {
+    width: 26%;
+}
+
+.music-table-list-albums.music-table-list-admin .col-secondary {
+    width: 20%;
+}
+
+.music-table-list-albums.music-table-list-admin .col-tertiary {
+    width: 14%;
+}
+
+.music-table-list-albums.music-table-list-admin .col-quaternary {
+    width: 10%;
+}
+
+.music-table-list-albums.music-table-list-admin .col-price {
+    width: 10%;
+}
+
+.music-table-list-albums.music-table-list-admin .col-actions {
+    width: 10%;
+}
+
+.music-table-list-albums.music-table-list-user .col-picture {
+    width: 10%;
+}
+
+.music-table-list-albums.music-table-list-user .col-primary {
+    width: 31%;
+}
+
+.music-table-list-albums.music-table-list-user .col-secondary {
+    width: 24%;
+}
+
+.music-table-list-albums.music-table-list-user .col-tertiary {
+    width: 15%;
+}
+
+.music-table-list-albums.music-table-list-user .col-quaternary {
+    width: 10%;
+}
+
+.music-table-list-albums.music-table-list-user .col-price {
+    width: 10%;
+}
+
+.music-table-compact-albums.music-table-compact-admin .col-primary {
+    width: 28%;
+}
+
+.music-table-compact-albums.music-table-compact-admin .col-secondary {
+    width: 25%;
+}
+
+.music-table-compact-albums.music-table-compact-admin .col-tertiary {
+    width: 15%;
+}
+
+.music-table-compact-albums.music-table-compact-admin .col-quaternary {
+    width: 10%;
+}
+
+.music-table-compact-albums.music-table-compact-admin .col-price {
+    width: 10%;
+}
+
+.music-table-compact-albums.music-table-compact-admin .col-actions {
+    width: 12%;
+}
+
+.music-table-compact-albums.music-table-compact-user .col-primary {
+    width: 32%;
+}
+
+.music-table-compact-albums.music-table-compact-user .col-secondary {
+    width: 30%;
+}
+
+.music-table-compact-albums.music-table-compact-user .col-tertiary {
+    width: 18%;
+}
+
+.music-table-compact-albums.music-table-compact-user .col-quaternary {
+    width: 10%;
+}
+
+.music-table-compact-albums.music-table-compact-user .col-price {
+    width: 10%;
+}
+
+.price-highlight,
+.price-badge {
     background-color: var(--ss-purple-950);
     color: var(--ss-lilac-100) !important;
-    padding: 5px 8px 5px 8px;
+    padding: 5px 8px;
     border-radius: 5px;
     font-size: 1.2em;
     font-weight: 400;
 }
 
-.song-grid-card {
-    width: 330px;
-}
-
 .price-badge {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 7px;
+    left: 7px;
     z-index: 1;
 }
+
+.music-cover {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+/* #endregion */
+
+/* ==================== MEDIA QUERIES ==================== */
+/* #region MEDIA QUERIES */
+
+@media (max-width: 1400px) {
+    .music-cover {
+        width: 250px;
+        height: 250px;
+    }
+
+    .card-custom {
+        width: 280px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .music-table-list,
+    .music-table-compact {
+        font-size: 0.81rem;
+    }
+
+    .music-primary-text {
+        font-size: 0.9em;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-primary {
+        width: 32%;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-tertiary {
+        width: 14%;
+    }
+
+    .music-table-list-songs.music-table-list-user .col-primary {
+        width: 38%;
+    }
+
+    .music-table-list-songs.music-table-list-user .col-tertiary {
+        width: 15%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-primary {
+        width: 20%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-quaternary {
+        width: 15%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-quinary {
+        width: 12%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-price {
+        width: 9%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-primary {
+        width: 25%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-quinary {
+        width: 10%;
+    }
+
+    .music-cover {
+        width: 200px;
+        height: 200px;
+    }
+
+    .card-custom {
+        width: 230px;
+    }
+
+    .price-highlight {
+        padding: 3px 6px;
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 991px) {
+    .music-table-list,
+    .music-table-compact {
+        font-size: 0.83rem;
+    }
+
+    .music-primary-text {
+        font-size: 0.92em;
+    }
+
+    .music-table-compact .hide-below-lg {
+        display: none;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-primary {
+        width: 25%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-secondary {
+        width: 21%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-tertiary {
+        width: 21%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-quinary {
+        width: 14%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-price {
+        width: 10%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-actions {
+        width: 9%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-primary {
+        width: 31%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-secondary {
+        width: 27%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-tertiary {
+        width: 23%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-quinary {
+        width: 11%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-price {
+        width: 8%;
+    }
+
+    .music-cover {
+        width: 300px;
+        height: 300px;
+    }
+
+    .card-custom {
+        width: 330px;
+    }
+
+    .price-highlight {
+        padding: 3px 6px;
+        border-radius: 5px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 767px) {
+    .music-table-list,
+    .music-table-compact {
+        font-size: 0.9rem;
+    }
+
+    .music-primary-text {
+        font-size: 1em;
+    }
+
+    .music-table-list .hide-below-md {
+        display: none;
+    }
+
+    .music-table-compact .hide-below-md {
+        display: none;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-picture {
+        width: 12%;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-primary {
+        width: 43%;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-tertiary {
+        width: 17%;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-price {
+        width: 14%;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-actions {
+        width: 14%;
+    }
+
+    .music-table-list-songs.music-table-list-user .col-picture {
+        width: 14%;
+    }
+
+    .music-table-list-songs.music-table-list-user .col-primary {
+        width: 49%;
+    }
+
+    .music-table-list-songs.music-table-list-user .col-tertiary {
+        width: 20%;
+    }
+
+    .music-table-list-songs.music-table-list-user .col-price {
+        width: 17%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-primary {
+        width: 32%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-secondary {
+        width: 29%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-quinary {
+        width: 17%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-price {
+        width: 12%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-actions {
+        width: 10%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-primary {
+        width: 43%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-secondary {
+        width: 35%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-quinary {
+        width: 13%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-price {
+        width: 9%;
+    }
+
+    .music-cover {
+        width: 210px;
+        height: 210px;
+    }
+
+    .card-custom {
+        width: 240px;
+    }
+
+    .price-highlight {
+        padding: 3px 6px;
+        border-radius: 5px;
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 576px) {
+    .music-table-list,
+    .music-table-compact {
+        font-size: 1rem;
+    }
+
+    .music-primary-text {
+        font-size: 1.1em;
+    }
+
+    .music-table-list .hide-below-sm {
+        display: none;
+    }
+
+    .music-table-compact .hide-below-sm {
+        display: none;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-picture {
+        width: 14%;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-primary {
+        width: 56%;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-price {
+        width: 15%;
+    }
+
+    .music-table-list-songs.music-table-list-admin .col-actions {
+        width: 15%;
+    }
+
+    .music-table-list-songs.music-table-list-user .col-picture {
+        width: 18%;
+    }
+
+    .music-table-list-songs.music-table-list-user .col-primary {
+        width: 62%;
+    }
+
+    .music-table-list-songs.music-table-list-user .col-price {
+        width: 20%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-primary {
+        width: 40%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-secondary {
+        width: 31%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-price {
+        width: 15%;
+    }
+
+    .music-table-compact-songs.music-table-compact-admin .col-actions {
+        width: 14%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-primary {
+        width: 52%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-secondary {
+        width: 33%;
+    }
+
+    .music-table-compact-songs.music-table-compact-user .col-price {
+        width: 15%;
+    }
+
+    .music-cover {
+        width: 410px;
+        height: 410px;
+    }
+
+    .card-custom {
+        width: 440px;
+    }
+}
+
+@media (max-width: 476px) {
+    .music-cover {
+        width: 300px;
+        height: 300px;
+    }
+
+    .card-custom {
+        width: 330px;
+    }
+}
+
+@media (max-width: 376px) {
+    .music-cover {
+        width: 210px;
+        height: 210px;
+    }
+
+    .card-custom {
+        width: 240px;
+    }
+}
+
+/* #endregion */

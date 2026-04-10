@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SovereignSounds.Data;
@@ -39,7 +35,9 @@ public class ViewModel : PageModel
 
         if (!string.IsNullOrEmpty(Search))
         {
-            query = query.Where(s => s.Title.Contains(Search));
+            query = query.Where(s => 
+            s.Title.Contains(Search) ||
+            s.Artist.Contains(Search));
         }
 
         Songs = await query.ToListAsync();

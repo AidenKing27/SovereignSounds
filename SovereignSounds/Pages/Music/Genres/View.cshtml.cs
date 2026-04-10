@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using SovereignSounds.Models;
 
 namespace SovereignSounds.Pages.Music.Genres
 {
+    [Authorize(Roles = "Admin")]
     public class ViewModel : PageModel
     {
         private readonly SovereignSounds.Data.ApplicationDbContext _context;
@@ -19,11 +21,11 @@ namespace SovereignSounds.Pages.Music.Genres
             _context = context;
         }
 
-        public IList<Genre> Genre { get;set; } = default!;
+        public IList<Genre> Genres { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Genre = await _context.Genres.ToListAsync();
+            Genres = await _context.Genres.ToListAsync();
         }
     }
 }

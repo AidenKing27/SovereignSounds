@@ -5,11 +5,18 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
+@*         <li class="nav-item">
             <a class="nav-link btn btn-sm" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage Profile">
                 <span class="bi bi-person-fill fs-5"></span>
             </a>
+        </li> *@
+
+        <li class="nav-item">
+            <a class="nav-link btn btn-sm" asp-page="/Profile" title="Profile">
+                <span class="bi bi-person-fill fs-5"></span>
+            </a>
         </li>
+
         <li class="nav-item">
             <button type="button" class="nav-link btn btn-link" title="Logout" data-bs-toggle="modal" data-bs-target="#logoutModal">
                 <span class="bi bi-door-open-fill fs-5"></span>
