@@ -28,7 +28,10 @@ namespace SovereignSounds.Pages.Music.Albums
                 return NotFound();
             }
 
-            var album = await _context.Albums.FirstOrDefaultAsync(m => m.Id == id);
+            var album = await _context.Albums
+                .Include(a => a.Genres)
+                .Include(a => a.Songs)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (album is not null)
             {

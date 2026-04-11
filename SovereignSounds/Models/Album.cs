@@ -1,11 +1,16 @@
-﻿namespace SovereignSounds.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SovereignSounds.Models;
 
 public class Album : MusicItem
 {
-    public int Id { get; set; }
+    [Required(ErrorMessage = "Please provide at least one genre")]
+    [MinLength(1, ErrorMessage = "You must select at least one genre")]
+    public List<Genre> Genres { get; set; } = new();
 
     public List<Song> Songs { get; set; } = new();
 
+    [Display(Name = "Song Count")]
     public int SongCount => Songs.Count;
 
     public TimeSpan Duration

@@ -2,48 +2,86 @@
 @model SovereignSounds.Pages.Music.Albums.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = $"{Model.Album.Title} Details";
+    var isAdmin = User.IsInRole("Admin");
 }
 
-<h1>Details</h1>
+<div class="card shadow">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
+            <div>
+                <h1 class="mb-1 d-flex align-items-center gap-2">@Model.Album.Title - @Model.Album.Artist</h1>
+            </div>
+            <form method="post">
+                <button class="btn btn-primary" type="submit">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0">
+                <img class="img-fluid w-100 rounded shadow-sm" src="@Model.Album.Picture" alt="@Model.Album.Title" loading="lazy" />
+                <div class="d-grid gap-2 mt-3">
+                </div>
+            </div>
+            <div class="col-12 col-md-8 col-lg-9">
+                <div class="song-detail-list">
+                    <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item lg-custom col-md-4 col-lg-2">@Html.DisplayNameFor(model => model.Album.Title)</li>
+                        <li class="list-group-item lg-custom-item flex-fill">@Html.DisplayFor(model => model.Album.Title)</li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item lg-custom col-md-4 col-lg-2">@Html.DisplayNameFor(model => model.Album.Artist)</li>
+                        <li class="list-group-item lg-custom-item flex-fill">@Html.DisplayFor(model => model.Album.Artist)</li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item lg-custom col-md-4 col-lg-2">Genres</li>
+                        <li class="list-group-item lg-custom-item flex-fill">
+                            @if (Model.Album.Genres != null && Model.Album.Genres.Any())
+                            {
+                                foreach (var genre in Model.Album.Genres)
+                                {
+                                    <span class="genre-chip">@genre.Name</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">None</span>
+                            }
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item lg-custom col-md-4 col-lg-2">@Html.DisplayNameFor(model => model.Album.ReleaseDate)</li>
+                        <li class="list-group-item lg-custom-item flex-fill">@Html.DisplayFor(model => model.Album.ReleaseDate)</li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item lg-custom col-md-4 col-lg-2">@Html.DisplayNameFor(model => model.Album.Price)</li>
+                        <li class="list-group-item lg-custom-item flex-fill">@Html.DisplayFor(model => model.Album.Price)</li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item lg-custom col-md-4 col-lg-2">@Html.DisplayNameFor(model => model.Album.SongCount)</li>
+                        <li class="list-group-item lg-custom-item flex-fill">@Html.DisplayFor(model => model.Album.SongCount)</li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item lg-custom col-md-4 col-lg-2">@Html.DisplayNameFor(model => model.Album.Duration)</li>
+                        <li class="list-group-item lg-custom-item flex-fill">@Html.DisplayFor(model => model.Album.Duration)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
 
-<div>
-    <h4>Album</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Album.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Album.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Album.Artist)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Album.Artist)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Album.ReleaseDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Album.ReleaseDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Album.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Album.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Album.Picture)
-        </dt>
-        <dd class="col-sm-10">
-            <img class="img-fluid" src="@Model.Album.Picture" alt="@Model.Album.Title" width="460" height="345" />
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Album.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+        <a asp-page="Index" class="btn btn-secondary mt-2 mb-2">
+            <span class="bi bi-arrow-return-left me-2"></span>
+            Back to List
+        </a>
+        @if (isAdmin)
+        {
+            <a asp-page="./Edit" asp-route-id="@Model.Album.Id" class="btn btn-primary mt-2 mb-2">
+                <span class="bi bi-pencil-square me-2 btn-icon"></span>
+                Edit Album
+            </a>
+        }
+    </div>
 </div>

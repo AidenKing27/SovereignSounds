@@ -24,6 +24,7 @@ namespace SovereignSounds
                 .AddDefaultUI();
 
             builder.Services.AddRazorPages();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -44,6 +45,8 @@ namespace SovereignSounds
             app.MapStaticAssets();
             app.MapRazorPages()
                .WithStaticAssets();
+
+            app.UseSession();
 
             // Seed Database
             using (var scope = app.Services.CreateScope())

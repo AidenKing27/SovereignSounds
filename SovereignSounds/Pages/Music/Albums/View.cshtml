@@ -23,7 +23,7 @@
     <div class="col-lg-2 col-12 mb-lg-3 mb-1 d-lg-block d-none">
         <h1 class="mb-lg-3">Albums</h1>
 
-        <div class="card shadow">
+        <div class="card shadow-sm">
             <div class="card-header">
                 Filters
             </div>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="col-lg-10 col-12">
-        <div class="card shadow">
+        <div class="card shadow-sm">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
@@ -197,10 +197,7 @@
                                             @if (isAdmin)
                                             {
                                                 <td class="text-center">
-                                                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
-                                                        <span class="bi bi-pencil-square"></span>
-                                                    </a>
-                                                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
+                                                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
                                                         <span class="bi bi-trash"></span>
                                                     </a>
                                                 </td>
@@ -291,10 +288,7 @@
                                             @if (isAdmin)
                                             {
                                                 <td class="text-center">
-                                                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
-                                                        <span class="bi bi-pencil-square"></span>
-                                                    </a>
-                                                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
+                                                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
                                                         <span class="bi bi-trash"></span>
                                                     </a>
                                                 </td>
@@ -306,6 +300,9 @@
                         </div>
                         break;
                 }
+            </div>
+            <div class="card-footer">
+
             </div>
         </div>
     </div>

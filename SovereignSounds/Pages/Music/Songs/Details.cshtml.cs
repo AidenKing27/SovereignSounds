@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using SovereignSounds.Data;
 using SovereignSounds.Models;
 
 namespace SovereignSounds.Pages.Music.Songs
@@ -28,7 +23,10 @@ namespace SovereignSounds.Pages.Music.Songs
                 return NotFound();
             }
 
-            var song = await _context.Songs.FirstOrDefaultAsync(m => m.Id == id);
+            var song = await _context.Songs
+                .Include(s => s.Album)
+                .Include(s => s.Genres)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (song is not null)
             {

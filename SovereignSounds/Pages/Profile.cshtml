@@ -1,4 +1,93 @@
 ﻿@page
+@using System.Text
 @model SovereignSounds.Pages.ProfileModel
 @{
+    ViewData["Title"] = "Profile";
+
+    static string FormatPhone(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return string.Empty;
+        }
+
+        StringBuilder sb = new();
+        sb.Append("(");
+        sb.Append(value.Substring(0, 3));
+        sb.Append(") ");
+        sb.Append(value.Substring(3, 3));
+        sb.Append("-");
+        sb.Append(value.Substring(6, 4));
+
+        return sb.ToString();
+    }
 }
+
+<div class="row">
+    <div class="col-6">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
+                    <h1 class="mb-0">Profile</h1>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="mb-4">Welcome to your profile page. You can manage your account details and security settings.</p>
+
+                <dl class="row mb-4">
+                    <dt class="col-sm-4">First Name</dt>
+                    <dd class="col-sm-8">@(Model.Customer?.FirstName ?? "")</dd>
+
+                    <dt class="col-sm-4">Last Name</dt>
+                    <dd class="col-sm-8">@(Model.Customer?.LastName ?? "")</dd>
+
+                    <dt class="col-sm-4">Email</dt>
+                    <dd class="col-sm-8">@(Model.Customer?.IdentityUser.Email ?? "")</dd>
+
+                    <dt class="col-sm-4">Phone</dt>
+                    <dd class="col-sm-8">@(@FormatPhone(Model.Customer?.IdentityUser.PhoneNumber) ?? "")</dd>
+                </dl>
+
+                <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage Profile">
+                    Go to Account Settings
+                </a>
+            </div>
+            <div class="card-footer">
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
+                    <h1 class="mb-0">My Music</h1>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="mb-4">This section will display all songs and albums you own.</p>
+
+                <div class="row g-4">
+                    <div class="col-12 col-md-6">
+                        <div class="border rounded p-3 h-100">
+                            <h3 class="h6 mb-3">Owned Songs</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-muted px-0">No songs to display yet.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="border rounded p-3 h-100">
+                            <h3 class="h6 mb-3">Owned Albums</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-muted px-0">No albums to display yet.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+            </div>
+        </div>
+    </div>
+</div>

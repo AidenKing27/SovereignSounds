@@ -107,7 +107,7 @@ a {
     }
 
 @media (min-width: 1400px) {
-    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+    .container {
         max-width: 1400px;
     }
 }
@@ -151,6 +151,17 @@ a {
     .navbar-light .navbar-nav .nav-item .nav-link:active {
         text-decoration: none !important;
         background-color: var(--ss-purple-900) !important;
+        color: var(--ss-lilac-100) !important;
+    }
+
+    .navbar-light .navbar-nav .nav-item .nav-link .bi {
+        color: var(--ss-purple-900) !important;
+        transition: color 0.2s ease-in-out;
+    }
+
+    .navbar-light .navbar-nav .nav-item .nav-link:hover .bi,
+    .navbar-light .navbar-nav .nav-item .nav-link:focus .bi,
+    .navbar-light .navbar-nav .nav-item .nav-link:active .bi {
         color: var(--ss-lilac-100) !important;
     }
 
@@ -237,7 +248,7 @@ a {
 
 .btn-secondary {
     background-color: var(--ss-secondary) !important;
-    color: var(--ss-lilac-100) !important;
+    color: var(--ss-purple-950) !important;
     border: none !important;
 }
 
@@ -262,14 +273,14 @@ a {
 .btn-secondary:hover,
 .btn-secondary:focus {
     background-color: var(--ss-secondary-hover) !important;
-    color: var(--ss-lilac-100) !important;
+    color: var(--ss-purple-950) !important;
     border: none !important;
     text-decoration: none !important;
 }
 
 .btn-secondary:active {
     background-color: var(--ss-secondary-active) !important;
-    color: var(--ss-lilac-100) !important;
+    color: var(--ss-purple-950) !important;
     border: none !important;
 }
 
@@ -278,6 +289,10 @@ a {
     color: var(--ss-lilac-100) !important;
     border: none !important;
 }
+
+    .btn-danger .bi {
+        color: var(--ss-lilac-100) !important;
+    }
 
     .btn-danger:hover,
     .btn-danger:focus {
@@ -314,13 +329,11 @@ a {
 /* ==================== FORMS & INPUTS ==================== */
 /* #region FORMS & INPUTS */
 
-.form-floating > .form-control-plaintext::placeholder,
 .form-floating > .form-control::placeholder {
     color: var(--bs-secondary-color);
     text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder,
 .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
@@ -414,12 +427,6 @@ a {
 .modal-body {
     background-color: var(--ss-lilac-200);
     color: var(--ss-purple-950);
-}
-
-.modal-footer {
-    background-color: var(--ss-lilac-300);
-    color: var(--ss-purple-950);
-    border-top: 1px solid var(--ss-purple-500);
 }
 
 /* #endregion */
@@ -524,21 +531,75 @@ a {
     opacity: 0.75;
 }
 
+.lg-custom {
+    background-color: var(--ss-purple-900);
+    color: var(--ss-lilac-100);
+    border: none;
+}
+
+.lg-custom-item {
+    background-color: var(--ss-lilac-100);
+    color: var(--ss-purple-900);
+    border: none;
+}
+
+.genre-chip {
+    background-color: var(--ss-danger-active);
+    color: var(--ss-lilac-100);
+    padding: 4px 7px 4px 7px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+/* #endregion */
+
+/* ==================== SONG DETAIL LIST ==================== */
+/* #region SONG DETAIL LIST */
+
+.song-detail-list > .list-group {
+    margin-bottom: 0;
+}
+
+.song-detail-list > .list-group > .list-group-item.lg-custom:first-child {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.song-detail-list > .list-group > .list-group-item.lg-custom-item:last-child {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.song-detail-list > .list-group:first-of-type > .list-group-item.lg-custom:first-child {
+    border-top-left-radius: .375rem !important;
+}
+
+.song-detail-list > .list-group:last-of-type > .list-group-item.lg-custom:first-child {
+    border-bottom-left-radius: .375rem !important;
+}
+
+.song-detail-list > .list-group:first-of-type > .list-group-item.lg-custom-item:last-child {
+    border-top-right-radius: .375rem !important;
+}
+
+.song-detail-list > .list-group:last-of-type > .list-group-item.lg-custom-item:last-child {
+    border-bottom-right-radius: .375rem !important;
+}
+
 /* #endregion */
 
 /* ==================== TABLE COLUMN WIDTHS ==================== */
 /* #region TABLE COLUMN WIDTHS */
-
 .music-table-list-songs.music-table-list-admin .col-picture {
     width: 10%;
 }
 
 .music-table-list-songs.music-table-list-admin .col-primary {
-    width: 33%;
+    width: 37%;
 }
 
 .music-table-list-songs.music-table-list-admin .col-secondary {
-    width: 20%;
+    width: 22%;
 }
 
 .music-table-list-songs.music-table-list-admin .col-tertiary {
@@ -550,7 +611,7 @@ a {
 }
 
 .music-table-list-songs.music-table-list-admin .col-actions {
-    width: 12%;
+    width: 6%;
 }
 
 .music-table-list-songs.music-table-list-user .col-picture {
@@ -574,11 +635,11 @@ a {
 }
 
 .music-table-compact-songs.music-table-compact-admin .col-primary {
-    width: 21%;
+    width: 24%;
 }
 
 .music-table-compact-songs.music-table-compact-admin .col-secondary {
-    width: 18%;
+    width: 19%;
 }
 
 .music-table-compact-songs.music-table-compact-admin .col-tertiary {
@@ -598,7 +659,7 @@ a {
 }
 
 .music-table-compact-songs.music-table-compact-admin .col-actions {
-    width: 8%;
+    width: 4%;
 }
 
 .music-table-compact-songs.music-table-compact-user .col-primary {
@@ -630,11 +691,11 @@ a {
 }
 
 .music-table-list-albums.music-table-list-admin .col-primary {
-    width: 26%;
+    width: 29%;
 }
 
 .music-table-list-albums.music-table-list-admin .col-secondary {
-    width: 20%;
+    width: 22%;
 }
 
 .music-table-list-albums.music-table-list-admin .col-tertiary {
@@ -650,7 +711,7 @@ a {
 }
 
 .music-table-list-albums.music-table-list-admin .col-actions {
-    width: 10%;
+    width: 5%;
 }
 
 .music-table-list-albums.music-table-list-user .col-picture {
@@ -678,11 +739,11 @@ a {
 }
 
 .music-table-compact-albums.music-table-compact-admin .col-primary {
-    width: 28%;
+    width: 32%;
 }
 
 .music-table-compact-albums.music-table-compact-admin .col-secondary {
-    width: 25%;
+    width: 27%;
 }
 
 .music-table-compact-albums.music-table-compact-admin .col-tertiary {
@@ -698,7 +759,7 @@ a {
 }
 
 .music-table-compact-albums.music-table-compact-admin .col-actions {
-    width: 12%;
+    width: 6%;
 }
 
 .music-table-compact-albums.music-table-compact-user .col-primary {
@@ -840,7 +901,7 @@ a {
     }
 
     .music-table-compact-songs.music-table-compact-admin .col-primary {
-        width: 25%;
+        width: 26%;
     }
 
     .music-table-compact-songs.music-table-compact-admin .col-secondary {
@@ -860,7 +921,7 @@ a {
     }
 
     .music-table-compact-songs.music-table-compact-admin .col-actions {
-        width: 9%;
+        width: 8%;
     }
 
     .music-table-compact-songs.music-table-compact-user .col-primary {
@@ -922,7 +983,7 @@ a {
     }
 
     .music-table-list-songs.music-table-list-admin .col-primary {
-        width: 43%;
+        width: 44%;
     }
 
     .music-table-list-songs.music-table-list-admin .col-tertiary {
@@ -934,7 +995,7 @@ a {
     }
 
     .music-table-list-songs.music-table-list-admin .col-actions {
-        width: 14%;
+        width: 13%;
     }
 
     .music-table-list-songs.music-table-list-user .col-picture {
@@ -954,7 +1015,7 @@ a {
     }
 
     .music-table-compact-songs.music-table-compact-admin .col-primary {
-        width: 32%;
+        width: 33%;
     }
 
     .music-table-compact-songs.music-table-compact-admin .col-secondary {
@@ -970,7 +1031,7 @@ a {
     }
 
     .music-table-compact-songs.music-table-compact-admin .col-actions {
-        width: 10%;
+        width: 9%;
     }
 
     .music-table-compact-songs.music-table-compact-user .col-primary {
@@ -1028,7 +1089,7 @@ a {
     }
 
     .music-table-list-songs.music-table-list-admin .col-primary {
-        width: 56%;
+        width: 57%;
     }
 
     .music-table-list-songs.music-table-list-admin .col-price {
@@ -1036,7 +1097,7 @@ a {
     }
 
     .music-table-list-songs.music-table-list-admin .col-actions {
-        width: 15%;
+        width: 14%;
     }
 
     .music-table-list-songs.music-table-list-user .col-picture {
@@ -1052,7 +1113,7 @@ a {
     }
 
     .music-table-compact-songs.music-table-compact-admin .col-primary {
-        width: 40%;
+        width: 41%;
     }
 
     .music-table-compact-songs.music-table-compact-admin .col-secondary {
@@ -1064,7 +1125,7 @@ a {
     }
 
     .music-table-compact-songs.music-table-compact-admin .col-actions {
-        width: 14%;
+        width: 13%;
     }
 
     .music-table-compact-songs.music-table-compact-user .col-primary {

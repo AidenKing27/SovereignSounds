@@ -8,7 +8,7 @@ using SovereignSounds.Data;
 
 #nullable disable
 
-namespace SovereignSounds.Data.Migrations
+namespace SovereignSounds.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -197,12 +197,10 @@ namespace SovereignSounds.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -239,12 +237,10 @@ namespace SovereignSounds.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -254,7 +250,7 @@ namespace SovereignSounds.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SovereignSounds.Models.Album", b =>
+            modelBuilder.Entity("SovereignSounds.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -262,29 +258,24 @@ namespace SovereignSounds.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Artist")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Picture")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateOnly>("ReleaseDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("IdentityUserId")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Albums");
+                    b.HasIndex("IdentityUserId")
+                        .IsUnique();
+
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("SovereignSounds.Models.Genre", b =>
@@ -305,7 +296,7 @@ namespace SovereignSounds.Data.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("SovereignSounds.Models.Song", b =>
+            modelBuilder.Entity("SovereignSounds.Models.MusicItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -313,22 +304,22 @@ namespace SovereignSounds.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AlbumId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Artist")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
+                    b.Property<string>("MusicItemType")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Picture")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateOnly>("ReleaseDate")
@@ -341,9 +332,63 @@ namespace SovereignSounds.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.ToTable("MusicItems");
+
+                    b.HasDiscriminator<string>("MusicItemType").HasValue("MusicItem");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.OrderHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MusicItemId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("MusicItemId");
+
+                    b.ToTable("OrderHistories");
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.Album", b =>
+                {
+                    b.HasBaseType("SovereignSounds.Models.MusicItem");
+
+                    b.HasDiscriminator().HasValue("Album");
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.Song", b =>
+                {
+                    b.HasBaseType("SovereignSounds.Models.MusicItem");
+
+                    b.Property<int?>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
                     b.HasIndex("AlbumId");
 
-                    b.ToTable("Songs");
+                    b.HasDiscriminator().HasValue("Song");
                 });
 
             modelBuilder.Entity("AlbumGenre", b =>
@@ -427,6 +472,36 @@ namespace SovereignSounds.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SovereignSounds.Models.Customer", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithOne()
+                        .HasForeignKey("SovereignSounds.Models.Customer", "IdentityUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IdentityUser");
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.OrderHistory", b =>
+                {
+                    b.HasOne("SovereignSounds.Models.Customer", "Customer")
+                        .WithMany("OrderHistories")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SovereignSounds.Models.MusicItem", "MusicItem")
+                        .WithMany("OrderHistories")
+                        .HasForeignKey("MusicItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("MusicItem");
+                });
+
             modelBuilder.Entity("SovereignSounds.Models.Song", b =>
                 {
                     b.HasOne("SovereignSounds.Models.Album", "Album")
@@ -434,6 +509,16 @@ namespace SovereignSounds.Data.Migrations
                         .HasForeignKey("AlbumId");
 
                     b.Navigation("Album");
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.Customer", b =>
+                {
+                    b.Navigation("OrderHistories");
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.MusicItem", b =>
+                {
+                    b.Navigation("OrderHistories");
                 });
 
             modelBuilder.Entity("SovereignSounds.Models.Album", b =>

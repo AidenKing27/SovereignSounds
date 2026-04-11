@@ -4,22 +4,21 @@ namespace SovereignSounds.Models;
 
 public abstract class MusicItem
 {
+    public int Id { get; set; }
+
     [Required(ErrorMessage = "Please enter the title")]
     [StringLength(50, ErrorMessage = "Title cannot exceed 50 characters")]
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Please enter the artist")]
     [StringLength(30, ErrorMessage = "Artist cannot exceed 30 characters")]
-    public string Artist { get; set; }
-
-    [Required(ErrorMessage = "Please provide at least one genre")]
-    [MinLength(1, ErrorMessage = "You must select at least one genre")]
-    public List<Genre> Genres { get; set; } = new();
+    public string Artist { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Please enter the release date")]
     [Display(Name = "Release Date")]
     [DataType(DataType.Date)]
     public DateOnly ReleaseDate { get; set; }
+
     [Display(Name = "Release Date")]
     public string ReleaseDateDisplay => ReleaseDate.ToString("MMM dd, yyyy");
 
@@ -31,5 +30,7 @@ public abstract class MusicItem
 
     [Required(ErrorMessage = "Please select a cover art")]
     [Display(Name = "Cover Art")]
-    public string Picture { get; set; }
+    public string Picture { get; set; } = string.Empty;
+
+    public List<OrderHistory> OrderHistories { get; set; } = new();
 }
