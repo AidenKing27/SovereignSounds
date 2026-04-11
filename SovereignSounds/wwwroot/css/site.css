@@ -5,7 +5,6 @@
     --ss-lilac-300: #CFA8E6;
     --ss-lilac-400: #C290E0;
     --ss-lilac-500: #B578D6;
-    --ss-lilac-600: #AF68CC;
     --ss-purple-500: #9C51B6;
     --ss-purple-600: #8A46A2;
     --ss-purple-700: #783C8E;
@@ -209,15 +208,15 @@ a {
 }
 
 .btn-primary {
-    background-color: var(--ss-purple-800) !important;
+    background-color: var(--ss-purple-900) !important;
     color: var(--ss-lilac-100) !important;
     border: none !important;
 }
 
 .btn-outline-primary {
     background-color: transparent !important;
-    color: var(--ss-purple-800) !important;
-    border: 1px solid var(--ss-purple-800) !important;
+    color: var(--ss-purple-900) !important;
+    border: 1px solid var(--ss-purple-900) !important;
 }
 
     .btn-outline-primary:hover,
@@ -226,9 +225,9 @@ a {
     .btn-outline-primary:active,
     .btn-outline-primary.active,
     .btn-outline-primary.dropdown-toggle.show {
-        background-color: var(--ss-purple-800) !important;
+        background-color: var(--ss-purple-900) !important;
         color: var(--ss-lilac-100) !important;
-        border-color: var(--ss-purple-800) !important;
+        border-color: var(--ss-purple-900) !important;
         text-decoration: none !important;
     }
 
@@ -241,7 +240,7 @@ a {
 }
 
 .btn-primary:active {
-    background-color: var(--ss-purple-950) !important;
+    background-color: var(--ss-purple-900) !important;
     color: var(--ss-lilac-100) !important;
     border: none !important;
 }
@@ -352,7 +351,7 @@ a {
     }
 
     .form-control::placeholder {
-        color: var(--ss-lilac-600);
+        color: var(--ss-lilac-500);
         opacity: 1;
     }
 
@@ -551,240 +550,9 @@ a {
     font-size: 0.9em;
 }
 
-/* #endregion */
-
-/* ==================== SONG DETAIL LIST ==================== */
-/* #region SONG DETAIL LIST */
-
-.song-detail-list > .list-group {
-    margin-bottom: 0;
-}
-
-.song-detail-list > .list-group > .list-group-item.lg-custom:first-child {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-}
-
-.song-detail-list > .list-group > .list-group-item.lg-custom-item:last-child {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-}
-
-.song-detail-list > .list-group:first-of-type > .list-group-item.lg-custom:first-child {
-    border-top-left-radius: .375rem !important;
-}
-
-.song-detail-list > .list-group:last-of-type > .list-group-item.lg-custom:first-child {
-    border-bottom-left-radius: .375rem !important;
-}
-
-.song-detail-list > .list-group:first-of-type > .list-group-item.lg-custom-item:last-child {
-    border-top-right-radius: .375rem !important;
-}
-
-.song-detail-list > .list-group:last-of-type > .list-group-item.lg-custom-item:last-child {
-    border-bottom-right-radius: .375rem !important;
-}
-
-/* #endregion */
-
-/* ==================== TABLE COLUMN WIDTHS ==================== */
-/* #region TABLE COLUMN WIDTHS */
-.music-table-list-songs.music-table-list-admin .col-picture {
-    width: 10%;
-}
-
-.music-table-list-songs.music-table-list-admin .col-primary {
-    width: 37%;
-}
-
-.music-table-list-songs.music-table-list-admin .col-secondary {
-    width: 22%;
-}
-
-.music-table-list-songs.music-table-list-admin .col-tertiary {
-    width: 13%;
-}
-
-.music-table-list-songs.music-table-list-admin .col-price {
-    width: 12%;
-}
-
-.music-table-list-songs.music-table-list-admin .col-actions {
-    width: 6%;
-}
-
-.music-table-list-songs.music-table-list-user .col-picture {
-    width: 10%;
-}
-
-.music-table-list-songs.music-table-list-user .col-primary {
-    width: 39%;
-}
-
-.music-table-list-songs.music-table-list-user .col-secondary {
-    width: 24%;
-}
-
-.music-table-list-songs.music-table-list-user .col-tertiary {
-    width: 14%;
-}
-
-.music-table-list-songs.music-table-list-user .col-price {
-    width: 13%;
-}
-
-.music-table-compact-songs.music-table-compact-admin .col-primary {
-    width: 24%;
-}
-
-.music-table-compact-songs.music-table-compact-admin .col-secondary {
-    width: 19%;
-}
-
-.music-table-compact-songs.music-table-compact-admin .col-tertiary {
-    width: 18%;
-}
-
-.music-table-compact-songs.music-table-compact-admin .col-quaternary {
-    width: 15%;
-}
-
-.music-table-compact-songs.music-table-compact-admin .col-quinary {
-    width: 11%;
-}
-
-.music-table-compact-songs.music-table-compact-admin .col-price {
-    width: 8%;
-}
-
-.music-table-compact-songs.music-table-compact-admin .col-actions {
-    width: 4%;
-}
-
-.music-table-compact-songs.music-table-compact-user .col-primary {
-    width: 26%;
-}
-
-.music-table-compact-songs.music-table-compact-user .col-secondary {
-    width: 22%;
-}
-
-.music-table-compact-songs.music-table-compact-user .col-tertiary {
-    width: 21%;
-}
-
-.music-table-compact-songs.music-table-compact-user .col-quaternary {
-    width: 14%;
-}
-
-.music-table-compact-songs.music-table-compact-user .col-quinary {
-    width: 9%;
-}
-
-.music-table-compact-songs.music-table-compact-user .col-price {
-    width: 8%;
-}
-
-.music-table-list-albums.music-table-list-admin .col-picture {
-    width: 10%;
-}
-
-.music-table-list-albums.music-table-list-admin .col-primary {
-    width: 29%;
-}
-
-.music-table-list-albums.music-table-list-admin .col-secondary {
-    width: 22%;
-}
-
-.music-table-list-albums.music-table-list-admin .col-tertiary {
-    width: 14%;
-}
-
-.music-table-list-albums.music-table-list-admin .col-quaternary {
-    width: 10%;
-}
-
-.music-table-list-albums.music-table-list-admin .col-price {
-    width: 10%;
-}
-
-.music-table-list-albums.music-table-list-admin .col-actions {
-    width: 5%;
-}
-
-.music-table-list-albums.music-table-list-user .col-picture {
-    width: 10%;
-}
-
-.music-table-list-albums.music-table-list-user .col-primary {
-    width: 31%;
-}
-
-.music-table-list-albums.music-table-list-user .col-secondary {
-    width: 24%;
-}
-
-.music-table-list-albums.music-table-list-user .col-tertiary {
-    width: 15%;
-}
-
-.music-table-list-albums.music-table-list-user .col-quaternary {
-    width: 10%;
-}
-
-.music-table-list-albums.music-table-list-user .col-price {
-    width: 10%;
-}
-
-.music-table-compact-albums.music-table-compact-admin .col-primary {
-    width: 32%;
-}
-
-.music-table-compact-albums.music-table-compact-admin .col-secondary {
-    width: 27%;
-}
-
-.music-table-compact-albums.music-table-compact-admin .col-tertiary {
-    width: 15%;
-}
-
-.music-table-compact-albums.music-table-compact-admin .col-quaternary {
-    width: 10%;
-}
-
-.music-table-compact-albums.music-table-compact-admin .col-price {
-    width: 10%;
-}
-
-.music-table-compact-albums.music-table-compact-admin .col-actions {
-    width: 6%;
-}
-
-.music-table-compact-albums.music-table-compact-user .col-primary {
-    width: 32%;
-}
-
-.music-table-compact-albums.music-table-compact-user .col-secondary {
-    width: 30%;
-}
-
-.music-table-compact-albums.music-table-compact-user .col-tertiary {
-    width: 18%;
-}
-
-.music-table-compact-albums.music-table-compact-user .col-quaternary {
-    width: 10%;
-}
-
-.music-table-compact-albums.music-table-compact-user .col-price {
-    width: 10%;
-}
-
 .price-highlight,
 .price-badge {
-    background-color: var(--ss-purple-950);
+    background-color: var(--ss-purple-900);
     color: var(--ss-lilac-100) !important;
     padding: 5px 8px;
     border-radius: 5px;
@@ -807,6 +575,125 @@ a {
 
 /* #endregion */
 
+/* ==================== DETAILS PAGE ==================== */
+/* #region DETAILS PAGE */
+
+.music-detail-list > .list-group {
+    margin-bottom: 0;
+}
+
+.music-detail-list > .list-group > .list-group-item.lg-custom:first-child {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.music-detail-list > .list-group > .list-group-item.lg-custom-item:last-child {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.music-detail-list > .list-group:first-of-type > .list-group-item.lg-custom:first-child {
+    border-top-left-radius: .375rem !important;
+}
+
+.music-detail-list > .list-group:last-of-type > .list-group-item.lg-custom:first-child {
+    border-bottom-left-radius: .375rem !important;
+}
+
+.music-detail-list > .list-group:first-of-type > .list-group-item.lg-custom-item:last-child {
+    border-top-right-radius: .375rem !important;
+}
+
+.music-detail-list > .list-group:last-of-type > .list-group-item.lg-custom-item:last-child {
+    border-bottom-right-radius: .375rem !important;
+}
+
+/* #endregion */
+
+/* ==================== TABLE COLUMN WIDTHS ==================== */
+/* #region TABLE COLUMN WIDTHS */
+
+.music-table-list-songs .col-picture,
+.music-table-list-albums .col-picture {
+    width: 10%;
+}
+
+.music-table-list-songs .col-primary {
+    width: 37%;
+}
+
+.music-table-compact-albums .col-primary {
+    width: 70%;
+}
+
+.music-table-list-albums .col-primary {
+    width: 61%;
+}
+
+.music-table-list-songs .col-secondary {
+    width: 22%;
+}
+
+.music-table-compact-songs .col-primary {
+    width: 24%;
+}
+
+.music-table-compact-songs .col-secondary {
+    width: 19%;
+}
+
+.music-table-compact-songs .col-tertiary {
+    width: 18%;
+}
+
+.music-table-compact-albums .col-tertiary {
+    width: 15%;
+}
+
+.music-table-list-albums .col-tertiary {
+    width: 14%;
+}
+
+.music-table-list-songs .col-tertiary {
+    width: 13%;
+}
+
+.music-table-compact-songs .col-quaternary {
+    width: 15%;
+}
+
+.music-table-compact-songs .col-quinary {
+    width: 11%;
+}
+
+.music-table-list-songs .col-price {
+    width: 12%;
+}
+
+.music-table-list-albums .col-price,
+.music-table-compact-albums .col-price {
+    width: 10%;
+}
+
+.music-table-compact-songs .col-price {
+    width: 8%;
+}
+
+.music-table-list-songs .col-actions,
+.music-table-compact-albums .col-actions {
+    width: 6%;
+}
+
+.music-table-list-albums .col-actions {
+    width: 5%;
+}
+
+.music-table-compact-songs .col-actions {
+    width: 4%;
+}
+
+/* #endregion */
+
 /* ==================== MEDIA QUERIES ==================== */
 /* #region MEDIA QUERIES */
 
@@ -822,8 +709,7 @@ a {
 }
 
 @media (max-width: 1200px) {
-    .music-table-list,
-    .music-table-compact {
+    :is(.music-table-list, .music-table-compact) {
         font-size: 0.81rem;
     }
 
@@ -831,44 +717,28 @@ a {
         font-size: 0.9em;
     }
 
-    .music-table-list-songs.music-table-list-admin .col-primary {
+    .music-table-list-songs .col-primary {
         width: 32%;
     }
 
-    .music-table-list-songs.music-table-list-admin .col-tertiary {
-        width: 14%;
-    }
-
-    .music-table-list-songs.music-table-list-user .col-primary {
-        width: 38%;
-    }
-
-    .music-table-list-songs.music-table-list-user .col-tertiary {
-        width: 15%;
-    }
-
-    .music-table-compact-songs.music-table-compact-admin .col-primary {
+    .music-table-compact-songs .col-primary {
         width: 20%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-quaternary {
+    .music-table-list-songs .col-tertiary {
+        width: 14%;
+    }
+
+    .music-table-compact-songs .col-quaternary {
         width: 15%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-quinary {
+    .music-table-compact-songs .col-quinary {
         width: 12%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-price {
+    .music-table-compact-songs .col-price {
         width: 9%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-primary {
-        width: 25%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-quinary {
-        width: 10%;
     }
 
     .music-cover {
@@ -887,8 +757,7 @@ a {
 }
 
 @media (max-width: 991px) {
-    .music-table-list,
-    .music-table-compact {
+    :is(.music-table-list, .music-table-compact) {
         font-size: 0.83rem;
     }
 
@@ -900,47 +769,27 @@ a {
         display: none;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-primary {
+    .music-table-compact-songs .col-primary {
         width: 26%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-secondary {
+    .music-table-compact-songs .col-secondary {
         width: 21%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-tertiary {
+    .music-table-compact-songs .col-tertiary {
         width: 21%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-quinary {
+    .music-table-compact-songs .col-quinary {
         width: 14%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-price {
+    .music-table-compact-songs .col-price {
         width: 10%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-actions {
-        width: 8%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-primary {
-        width: 31%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-secondary {
-        width: 27%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-tertiary {
-        width: 23%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-quinary {
-        width: 11%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-price {
+    .music-table-compact-songs .col-actions {
         width: 8%;
     }
 
@@ -961,8 +810,7 @@ a {
 }
 
 @media (max-width: 767px) {
-    .music-table-list,
-    .music-table-compact {
+    :is(.music-table-list, .music-table-compact) {
         font-size: 0.9rem;
     }
 
@@ -970,83 +818,41 @@ a {
         font-size: 1em;
     }
 
-    .music-table-list .hide-below-md {
+    :is(.music-table-list, .music-table-compact) .hide-below-md {
         display: none;
     }
 
-    .music-table-compact .hide-below-md {
-        display: none;
-    }
-
-    .music-table-list-songs.music-table-list-admin .col-picture {
-        width: 12%;
-    }
-
-    .music-table-list-songs.music-table-list-admin .col-primary {
+    .music-table-list-songs .col-primary {
         width: 44%;
     }
 
-    .music-table-list-songs.music-table-list-admin .col-tertiary {
-        width: 17%;
-    }
-
-    .music-table-list-songs.music-table-list-admin .col-price {
-        width: 14%;
-    }
-
-    .music-table-list-songs.music-table-list-admin .col-actions {
-        width: 13%;
-    }
-
-    .music-table-list-songs.music-table-list-user .col-picture {
-        width: 14%;
-    }
-
-    .music-table-list-songs.music-table-list-user .col-primary {
-        width: 49%;
-    }
-
-    .music-table-list-songs.music-table-list-user .col-tertiary {
-        width: 20%;
-    }
-
-    .music-table-list-songs.music-table-list-user .col-price {
-        width: 17%;
-    }
-
-    .music-table-compact-songs.music-table-compact-admin .col-primary {
+    .music-table-compact-songs .col-primary {
         width: 33%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-secondary {
+    .music-table-compact-songs .col-secondary {
         width: 29%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-quinary {
+    .music-table-list-songs .col-tertiary,
+    .music-table-compact-songs .col-quinary {
         width: 17%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-price {
-        width: 12%;
+    .music-table-list-songs .col-price {
+        width: 14%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-actions {
-        width: 9%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-primary {
-        width: 43%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-secondary {
-        width: 35%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-quinary {
+    .music-table-list-songs .col-actions {
         width: 13%;
     }
 
-    .music-table-compact-songs.music-table-compact-user .col-price {
+    .music-table-list-songs .col-picture,
+    .music-table-compact-songs .col-price {
+        width: 12%;
+    }
+
+    .music-table-compact-songs .col-actions {
         width: 9%;
     }
 
@@ -1067,8 +873,7 @@ a {
 }
 
 @media (max-width: 576px) {
-    .music-table-list,
-    .music-table-compact {
+    :is(.music-table-list, .music-table-compact) {
         font-size: 1rem;
     }
 
@@ -1076,68 +881,37 @@ a {
         font-size: 1.1em;
     }
 
-    .music-table-list .hide-below-sm {
+    :is(.music-table-list, .music-table-compact) .hide-below-sm {
         display: none;
     }
 
-    .music-table-compact .hide-below-sm {
-        display: none;
-    }
-
-    .music-table-list-songs.music-table-list-admin .col-picture {
+    .music-table-list-songs .col-picture {
         width: 14%;
     }
 
-    .music-table-list-songs.music-table-list-admin .col-primary {
+    .music-table-list-songs .col-primary {
         width: 57%;
     }
 
-    .music-table-list-songs.music-table-list-admin .col-price {
-        width: 15%;
-    }
-
-    .music-table-list-songs.music-table-list-admin .col-actions {
-        width: 14%;
-    }
-
-    .music-table-list-songs.music-table-list-user .col-picture {
-        width: 18%;
-    }
-
-    .music-table-list-songs.music-table-list-user .col-primary {
-        width: 62%;
-    }
-
-    .music-table-list-songs.music-table-list-user .col-price {
-        width: 20%;
-    }
-
-    .music-table-compact-songs.music-table-compact-admin .col-primary {
+    .music-table-compact-songs .col-primary {
         width: 41%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-secondary {
+    .music-table-compact-songs .col-secondary {
         width: 31%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-price {
+    .music-table-list-songs .col-price,
+    .music-table-compact-songs .col-price {
         width: 15%;
     }
 
-    .music-table-compact-songs.music-table-compact-admin .col-actions {
+    .music-table-list-songs .col-actions {
+        width: 14%;
+    }
+
+    .music-table-compact-songs .col-actions {
         width: 13%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-primary {
-        width: 52%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-secondary {
-        width: 33%;
-    }
-
-    .music-table-compact-songs.music-table-compact-user .col-price {
-        width: 15%;
     }
 
     .music-cover {

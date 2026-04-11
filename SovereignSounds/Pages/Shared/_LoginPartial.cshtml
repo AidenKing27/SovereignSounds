@@ -5,11 +5,11 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-@*         <li class="nav-item">
-            <a class="nav-link btn btn-sm" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage Profile">
-                <span class="bi bi-person-fill fs-5"></span>
+        <li class="nav-item">
+            <a class="nav-link btn btn-sm" asp-page="/ShoppingCart" title="Cart">
+                <span class="bi bi-cart-fill fs-5"></span>
             </a>
-        </li> *@
+        </li>
 
         <li class="nav-item">
             <a class="nav-link btn btn-sm" asp-page="/Profile" title="Profile">

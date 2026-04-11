@@ -25,4 +25,7 @@ public class Album : MusicItem
             return total;
         }
     }
+
+    [Display(Name = "Duration")]
+    public string DurationDisplay => Duration.ToString(@"hh:\mm\:ss");
 }

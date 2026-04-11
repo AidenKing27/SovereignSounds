@@ -16,36 +16,68 @@ public class ShoppingCartModel : PageModel
         _context = context;
     }
 
-    List<MusicItem> Cart { get; set; } = default!;
+    public List<MusicItemDto> Cart { get; set; } = default!;
 
-    //public async Task<IActionResult> OnGetAsync(int? id)
-    //{
-    //    var SessCart = HttpContext.Session.GetString("Cart");
-    //    if (SessCart != null)
-    //        Cart = JsonConvert.DeserializeObject<List<MusicItem>>(SessCart);
-    //    else
-    //        Cart = new List<MusicItem>();
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        var sessionCart = HttpContext.Session.GetString("Cart");
+        if (sessionCart is not null)
+            Cart = JsonConvert.DeserializeObject<List<MusicItemDto>>(sessionCart)!;
+        else
+            Cart = new List<MusicItemDto>();
 
-    //    var song = await _context.Songs.FirstOrDefaultAsync(s => s.Id == id);
-    //    if (song != null)
-    //    {
-    //        bool found = false;
-    //        for (int i = 0; i < Cart.Count; i++)
-    //        {
-    //            if (Cart[i].Id == id)
-    //            {
-    //                Cart[i].Quantity++;
-    //                found = true;
-    //                break;
-    //            }
-    //        }
-    //        if (!found)
-    //        {
-    //            song.Quantity = 1;
-    //            Cart.Add(movie);
-    //        }
-    //        HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(Cart));
-    //    }
-    //    return Page();
-    //}
+        if (id is null)
+            return Page();
+
+        MusicItemDto? musicItem = null;
+
+        Song? song = await _context.Songs
+            .Include(s => s.Album)
+            .Include(s => s.Genres)
+            .FirstOrDefaultAsync(s => s.Id == id.Value);
+
+        if (song is not null)
+        {
+            musicItem = new()
+            {
+                Id = song.Id,
+                ItemType = song.GetType().Name,
+                Title = song.Title,
+                Artist = song.Artist,
+                Album = song.Album!.Title,
+                ReleaseDate = song.ReleaseDateDisplay,
+                Duration = song.DurationDisplay,
+                Price = song.Price,
+                Picture = song.Picture,
+                Genres = song.Genres.Select(g => g.Name).ToList()
+            };
+        }
+        else
+        {
+            Album? album = await _context.Albums
+                .Include(a => a.Genres)
+                .FirstOrDefaultAsync(a => a.Id == id.Value);
+
+            musicItem = new()
+            {
+                Id = album.Id,
+                ItemType = album.GetType().Name,
+                Title = album.Title,
+                Artist = album.Artist,
+                ReleaseDate = album.ReleaseDateDisplay,
+                Duration = album.DurationDisplay,
+                Price = album.Price,
+                Picture = album.Picture,
+                Genres = album.Genres.Select(g => g.Name).ToList()
+            };
+        }
+
+        if (!Cart.Any(c => c.Id == id.Value))
+        {
+            Cart.Add(musicItem);
+            HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(Cart));
+        }
+
+        return Page();
+    }
 }
