@@ -56,7 +56,7 @@ namespace SovereignSounds.Pages.Music.Albums
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./View");
         }
     }
 }

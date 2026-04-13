@@ -2,67 +2,90 @@
 @model SovereignSounds.Pages.Music.Songs.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Song";
 }
 
-<h1>Edit</h1>
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+        <div class="card shadow">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
+                    <h1 class="mb-0">Edit Song</h1>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <form id="editSongForm" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="Song.Id" />
 
-<h4>Song</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Song.Id" />
-            <div class="form-group">
-                <label asp-for="Song.AlbumId" class="control-label"></label>
-                <select asp-for="Song.AlbumId" class="form-control" asp-items="ViewBag.AlbumId" ></select>
-                <span asp-validation-for="Song.AlbumId" class="text-danger"></span>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <select asp-for="Song.AlbumId" class="form-select" asp-items="ViewBag.AlbumId"></select>
+                                <label asp-for="Song.AlbumId"></label>
+                            </div>
+                            <span asp-validation-for="Song.AlbumId" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Song.DurationInput" class="form-control" placeholder="mm:ss" />
+                                <label asp-for="Song.DurationInput"></label>
+                            </div>
+                            <span asp-validation-for="Song.DurationInput" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Song.ReleaseDate" class="form-control" aria-required="true" placeholder="release date" />
+                                <label asp-for="Song.ReleaseDate"></label>
+                            </div>
+                            <span asp-validation-for="Song.ReleaseDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Song.Title" class="form-control" aria-required="true" placeholder="title" />
+                                <label asp-for="Song.Title"></label>
+                            </div>
+                            <span asp-validation-for="Song.Title" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Song.Artist" class="form-control" aria-required="true" placeholder="artist" />
+                                <label asp-for="Song.Artist"></label>
+                            </div>
+                            <span asp-validation-for="Song.Artist" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Song.Price" class="form-control" aria-required="true" placeholder="0.00" />
+                                <label asp-for="Song.Price"></label>
+                            </div>
+                            <span asp-validation-for="Song.Price" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Song.Picture" class="form-control" aria-required="true" placeholder="picture url" />
+                                <label asp-for="Song.Picture"></label>
+                            </div>
+                            <span asp-validation-for="Song.Picture" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Song.Duration" class="control-label"></label>
-                <input asp-for="Song.Duration" class="form-control" />
-                <span asp-validation-for="Song.Duration" class="text-danger"></span>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
+                    <a asp-page="./View" class="btn btn-secondary mt-2 mb-2">
+                        <span class="bi bi-arrow-return-left me-2"></span>
+                        Back to List
+                    </a>
+                    <button type="submit" form="editSongForm" class="btn btn-primary mt-2 mb-2">
+                        <span class="bi bi-check2 me-2 btn-icon"></span>
+                        Save Changes
+                    </button>
+                </div>
             </div>
-            <div class="form-group">
-<span class="text-danger">*</span>
-                <label asp-for="Song.Title" class="control-label"></label>
-                <input asp-for="Song.Title" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Song.Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-<span class="text-danger">*</span>
-                <label asp-for="Song.Artist" class="control-label"></label>
-                <input asp-for="Song.Artist" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Song.Artist" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-<span class="text-danger">*</span>
-                <label asp-for="Song.ReleaseDate" class="control-label"></label>
-                <input asp-for="Song.ReleaseDate" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Song.ReleaseDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-<span class="text-danger">*</span>
-                <label asp-for="Song.Price" class="control-label"></label>
-                <input asp-for="Song.Price" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Song.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-<span class="text-danger">*</span>
-                <label asp-for="Song.Picture" class="control-label"></label>
-                <input asp-for="Song.Picture" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Song.Picture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -1,5 +1,4 @@
 ﻿@page
-@using System.Text
 @model SovereignSounds.Pages.ProfileModel
 @{
     ViewData["Title"] = "Profile";
@@ -7,9 +6,7 @@
     static string FormatPhone(string? value)
     {
         if (string.IsNullOrWhiteSpace(value))
-        {
             return string.Empty;
-        }
 
         StringBuilder sb = new();
         sb.Append("(");
@@ -24,7 +21,7 @@
 }
 
 <div class="row">
-    <div class="col-4">
+    <div class="col-lg-5 col-12 mb-4">
         <div class="card shadow-sm">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
@@ -35,62 +32,114 @@
                 <p class="mb-4">Welcome to your profile page. You can manage your account details and security settings.</p>
 
                 <dl class="row mb-4">
-                    <dt class="col-sm-4">First Name</dt>
-                    <dd class="col-sm-8">@(Model.Customer?.FirstName ?? "")</dd>
+                    <dt class="col-xxl-5 col-sm-6">First Name</dt>
+                    <dd class="col-xxl-7 col-sm-6">@(Model.Customer?.FirstName ?? "")</dd>
 
-                    <dt class="col-sm-4">Last Name</dt>
-                    <dd class="col-sm-8">@(Model.Customer?.LastName ?? "")</dd>
+                    <dt class="col-xxl-5 col-sm-6">Last Name</dt>
+                    <dd class="col-xxl-7 col-sm-6">@(Model.Customer?.LastName ?? "")</dd>
 
-                    <dt class="col-sm-4">Email</dt>
-                    <dd class="col-sm-8">@(Model.Customer?.IdentityUser.Email ?? "")</dd>
+                    <dt class="col-xxl-5 col-sm-6">Email</dt>
+                    <dd class="col-xxl-7 col-sm-6">@(Model.Customer?.IdentityUser.Email ?? "")</dd>
 
-                    <dt class="col-sm-4">Phone</dt>
-                    <dd class="col-sm-8">@(@FormatPhone(Model.Customer?.IdentityUser.PhoneNumber) ?? "")</dd>
+                    <dt class="col-xxl-5 col-sm-6">Phone</dt>
+                    <dd class="col-xxl-7 col-sm-6">@(@FormatPhone(Model.Customer?.IdentityUser.PhoneNumber) ?? "")</dd>
                 </dl>
-
+            </div>
+            <div class="card-footer">
                 <div class="text-end">
                     <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage Profile">
-                        View Account Settings
+                        View Account
                     </a>
                 </div>
             </div>
-            <div class="card-footer">
-            </div>
         </div>
     </div>
-    <div class="col-8">
+    <div class="col-lg-7 col-12">
         <div class="card shadow-sm">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
                     <h1 class="mb-0">Library</h1>
+                    <form method="post" asp-page-handler="SetLibraryView">
+                        <div class="btn-group" role="group" aria-label="Library view toggle">
+                            <input type="radio" class="btn-check" name="view" id="songsView"
+                                   value="@LibrarySection.Songs"
+                            @(Model.View == LibrarySection.Songs ? "checked" : "")
+                                   onchange="this.form.submit()" autocomplete="off">
+                            <label class="btn btn-toggle" for="songsView">
+                                <span class="bi bi-music-note-beamed btn-icon"></span>
+                            </label>
+
+                            <input type="radio" class="btn-check" name="view" id="albumsView"
+                                   value="@LibrarySection.Albums"
+                            @(Model.View == LibrarySection.Albums ? "checked" : "")
+                                   onchange="this.form.submit()" autocomplete="off">
+                            <label class="btn btn-toggle" for="albumsView">
+                                <span class="bi bi-disc btn-icon"></span>
+                            </label>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="card-body">
-                <p class="mb-4">Use this section to view all the songs and albums you own.</p>
-
-                <div class="row g-4">
-
-                    <div class="col-12 col-md-6">
+                @switch (Model.View)
+                {
+                    case LibrarySection.Songs:
                         <h3 class="h6 mb-3">Songs</h3>
-                        <ul class="list-group list-group-flush">
+                        <div class="row g-1">
                             @foreach (var song in Model.CustomerSongs)
                             {
-                                <li class="list-group-item text-muted px-0">@song.Artist - @song.Title</li>
+                                <div class="d-flex">
+                                    <div class="profile-card">
+                                        <a asp-page="./Details" asp-route-id="@song.Id" class="text-reset text-decoration-none d-block">
+                                            <div class="d-flex">
+                                                <img src="@song.Picture" alt="@song.Title" loading="lazy" width="50" height="50" style="margin-right: 15px" />
+                                                <div>
+                                                    <div>
+                                                        @Html.DisplayFor(modelItem => song.Artist)
+                                                    </div>
+                                                    <div>
+                                                        @Html.DisplayFor(modelItem => song.Title)
+                                                    </div>
+                                                </div>
+                                                <div class="ms-auto text-end align-self-center">
+                                                    <span class="small">@song.DurationDisplay</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             }
-                        </ul>
-                    </div>
-
-                    <div class="col-12 col-md-6">
+                        </div>
+                        break;
+                    case LibrarySection.Albums:
                         <h3 class="h6 mb-3">Albums</h3>
-                        <ul class="list-group list-group-flush">
+                        <div class="row g-1">
                             @foreach (var album in Model.CustomerAlbums)
                             {
-                                <li class="list-group-item text-muted px-0">@album.Artist - @album.Title</li>
+                                <div class="d-flex">
+                                    <div class="profile-card">
+                                        <a asp-page="./Details" asp-route-id="@album.Id" class="text-reset text-decoration-none d-block">
+                                            <div class="d-flex">
+                                                <img src="@album.Picture" alt="@album.Title" loading="lazy" width="50" height="50" style="margin-right: 15px" />
+                                                <div>
+                                                    <div>
+                                                        @Html.DisplayFor(modelItem => album.Artist)
+                                                    </div>
+                                                    <div>
+                                                        @Html.DisplayFor(modelItem => album.Title)
+                                                    </div>
+                                                </div>
+                                                <div class="ms-auto text-end align-self-center">
+                                                    <span class="small">@album.DurationDisplay</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             }
-                        </ul>
-                    </div>
-
-                </div>
+                        </div>
+                        break;
+                }
             </div>
             <div class="card-footer">
             </div>

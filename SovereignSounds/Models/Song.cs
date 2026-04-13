@@ -5,6 +5,7 @@ namespace SovereignSounds.Models;
 
 public class Song : MusicItem
 {
+    [Display(Name = "Album")]
     public int? AlbumId { get; set; }
     public Album? Album { get; set; }
 

@@ -66,7 +66,7 @@ namespace SovereignSounds.Pages.Music.Genres
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./View");
         }
 
         private bool GenreExists(int id)

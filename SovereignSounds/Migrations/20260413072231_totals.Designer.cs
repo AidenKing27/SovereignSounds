@@ -12,8 +12,8 @@ using SovereignSounds.Data;
 namespace SovereignSounds.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260411174701_newtables")]
-    partial class newtables
+    [Migration("20260413072231_totals")]
+    partial class totals
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -335,6 +335,8 @@ namespace SovereignSounds.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Title", "Artist");
+
                     b.ToTable("MusicItems");
 
                     b.HasDiscriminator<string>("MusicItemType").HasValue("MusicItem");
@@ -350,14 +352,40 @@ namespace SovereignSounds.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal>("CartTotal")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("GrandTotal")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("OrderHistories");
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("MusicItemId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("PurchasePrice")
                         .HasPrecision(18, 2)
@@ -365,11 +393,38 @@ namespace SovereignSounds.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("MusicItemId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.OwnedItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AcquiredDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MusicItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("MusicItemId");
 
-                    b.ToTable("OrderHistories");
+                    b.HasIndex("CustomerId", "MusicItemId")
+                        .IsUnique();
+
+                    b.ToTable("OwnedItems");
                 });
 
             modelBuilder.Entity("SovereignSounds.Models.Album", b =>
@@ -494,8 +549,38 @@ namespace SovereignSounds.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.OrderItem", b =>
+                {
                     b.HasOne("SovereignSounds.Models.MusicItem", "MusicItem")
-                        .WithMany("OrderHistories")
+                        .WithMany("AllOrders")
+                        .HasForeignKey("MusicItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SovereignSounds.Models.OrderHistory", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MusicItem");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.OwnedItem", b =>
+                {
+                    b.HasOne("SovereignSounds.Models.Customer", "Customer")
+                        .WithMany("OwnedItems")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SovereignSounds.Models.MusicItem", "MusicItem")
+                        .WithMany()
                         .HasForeignKey("MusicItemId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -517,11 +602,18 @@ namespace SovereignSounds.Migrations
             modelBuilder.Entity("SovereignSounds.Models.Customer", b =>
                 {
                     b.Navigation("OrderHistories");
+
+                    b.Navigation("OwnedItems");
                 });
 
             modelBuilder.Entity("SovereignSounds.Models.MusicItem", b =>
                 {
-                    b.Navigation("OrderHistories");
+                    b.Navigation("AllOrders");
+                });
+
+            modelBuilder.Entity("SovereignSounds.Models.OrderHistory", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("SovereignSounds.Models.Album", b =>

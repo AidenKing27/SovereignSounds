@@ -2,57 +2,76 @@
 @model SovereignSounds.Pages.Music.Albums.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Album";
 }
 
-<h1>Edit</h1>
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+        <div class="card shadow">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
+                    <h1 class="mb-0">Edit Album</h1>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <form id="editAlbumForm" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="Album.Id" />
 
-<h4>Album</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Album.Id" />
-            <div class="form-group">
-<span class="text-danger">*</span>
-                <label asp-for="Album.Title" class="control-label"></label>
-                <input asp-for="Album.Title" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Album.Title" class="text-danger"></span>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Album.Title" class="form-control" aria-required="true" placeholder="title" />
+                                <label asp-for="Album.Title"></label>
+                            </div>
+                            <span asp-validation-for="Album.Title" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Album.Artist" class="form-control" aria-required="true" placeholder="artist" />
+                                <label asp-for="Album.Artist"></label>
+                            </div>
+                            <span asp-validation-for="Album.Artist" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Album.ReleaseDate" class="form-control" aria-required="true" placeholder="release date" />
+                                <label asp-for="Album.ReleaseDate"></label>
+                            </div>
+                            <span asp-validation-for="Album.ReleaseDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="Album.Price" class="form-control" aria-required="true" placeholder="0.00" />
+                                <label asp-for="Album.Price"></label>
+                            </div>
+                            <span asp-validation-for="Album.Price" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input asp-for="Album.Picture" class="form-control" aria-required="true" placeholder="picture url" />
+                                <label asp-for="Album.Picture"></label>
+                            </div>
+                            <span asp-validation-for="Album.Picture" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </form>
             </div>
-            <div class="form-group">
-<span class="text-danger">*</span>
-                <label asp-for="Album.Artist" class="control-label"></label>
-                <input asp-for="Album.Artist" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Album.Artist" class="text-danger"></span>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
+                    <a asp-page="./View" class="btn btn-secondary mt-2 mb-2">
+                        <span class="bi bi-arrow-return-left me-2"></span>
+                        Back to List
+                    </a>
+                    <button type="submit" form="editAlbumForm" class="btn btn-primary mt-2 mb-2">
+                        <span class="bi bi-check2 me-2 btn-icon"></span>
+                        Save Changes
+                    </button>
+                </div>
             </div>
-            <div class="form-group">
-<span class="text-danger">*</span>
-                <label asp-for="Album.ReleaseDate" class="control-label"></label>
-                <input asp-for="Album.ReleaseDate" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Album.ReleaseDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-<span class="text-danger">*</span>
-                <label asp-for="Album.Price" class="control-label"></label>
-                <input asp-for="Album.Price" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Album.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-<span class="text-danger">*</span>
-                <label asp-for="Album.Picture" class="control-label"></label>
-                <input asp-for="Album.Picture" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Album.Picture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {

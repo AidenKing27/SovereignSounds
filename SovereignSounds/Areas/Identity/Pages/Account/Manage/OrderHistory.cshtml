@@ -1,0 +1,57 @@
+﻿@page
+@model SovereignSounds.Areas.Identity.Pages.Account.Manage.OrderHistoryModel
+@{
+    ViewData["Title"] = "Order history";
+    ViewData["ActivePage"] = ManageNavPages.OrderHistory;
+}
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="mb-0 py-1">Order History</h3>
+    </div>
+    <div class="card-body">
+        @if (!Model.Orders.Any())
+        {
+            <p class="text-muted mb-0">You have not placed any orders yet.</p>
+        }
+        else
+        {
+            @foreach (var order in Model.Orders)
+            {
+                <div class="history-card">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong>Order #@order.Id</strong>
+                        @order.PurchaseDate.ToString("MMM dd, yyyy")
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-sm mb-2">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Artist</th>
+                                    <th class="text-end">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in order.Items)
+                                {
+                                    <tr>
+                                        <td>@item.MusicItem.Title</td>
+                                        <td>@item.MusicItem.Artist</td>
+                                        <td class="text-end">@item.PurchasePrice.ToString("C")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="text-end">
+                        <div><small>Subtotal:</small> @order.CartTotal.ToString("C")</div>
+                        <div><strong>Total:</strong> @order.GrandTotal.ToString("C")</div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

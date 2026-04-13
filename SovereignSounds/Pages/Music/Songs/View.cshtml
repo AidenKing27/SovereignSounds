@@ -1,16 +1,13 @@
 ﻿@page
-@using SovereignSounds.Models
 @model SovereignSounds.Pages.Music.Songs.ViewModel
 @{
     ViewData["Title"] = "Songs";
-    var isAdmin = User.IsInRole("Admin");
+    bool isAdmin = User.IsInRole("Admin");
 
     static string Truncate(string? value, int maxLength = 20)
     {
         if (string.IsNullOrWhiteSpace(value))
-        {
             return string.Empty;
-        }
 
         return value.Length <= maxLength
             ? value
@@ -19,26 +16,15 @@
 }
 
 <div class="row">
-
-    <div class="col-lg-2 col-12 mb-lg-3 mb-1 d-lg-block d-none">
-        <h1 class="mb-lg-3">Songs</h1>
-
-        <div class="card shadow-sm">
-            <div class="card-header">
-                Filters
-            </div>
-            <div class="card-body">
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-10 col-12">
+    <div class="col-12">
         <div class="card shadow-sm">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-                        <h1 class="mb-0 d-lg-none d-block">Songs</h1>
+                        <h1 class="mb-0">Songs</h1>
                         <form method="post" asp-page-handler="SetListStyle">
+                            <input type="hidden" name="search" value="@Model.Search" />
+                            <input type="hidden" name="pageNumber" value="@Model.PageNumber" />
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="style" id="gridStyle"
                                        value="@ListStyle.Grid.ToString()"
@@ -66,6 +52,8 @@
                             </div>
                         </form>
                         <form method="get" class="align-items-center gap-2 d-md-flex d-none">
+                            <input type="hidden" name="style" value="@Model.ListStyle" />
+                            <input type="hidden" name="pageNumber" value="1" />
                             <input class="form-control w-auto" name="search" value="@Model.Search" type="text" placeholder="Search..." aria-label="Search">
                             <button class="btn btn-outline-primary" type="submit">Search</button>
                         </form>
@@ -79,6 +67,8 @@
                     }
                 </div>
                 <form method="get" class="gap-2 d-md-none d-flex">
+                    <input type="hidden" name="style" value="@Model.ListStyle" />
+                    <input type="hidden" name="pageNumber" value="1" />
                     <input class="form-control" name="search" value="@Model.Search" type="text" placeholder="Search..." aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit">Search</button>
                 </form>
@@ -97,7 +87,7 @@
                                         </div>
                                         <a asp-page="./Details" asp-route-id="@item.Id" class="text-reset text-decoration-none d-block">
                                             <div class="card-custom text-center" role="button" style="cursor: pointer;">
-                                                <img src="@item.Picture" alt="@item.Title" loading="lazy" class="music-cover" />
+                                                <img src="@item.Picture" alt="@item.Title" loading="lazy" class="music-cover rounded" />
                                                 <div class="pt-2 pb-2">
                                                     <span class="music-primary-text">@Html.DisplayFor(modelItem => item.Title)</span> - <span class="music-secondary-text music-secondary-text-grid">@Html.DisplayFor(modelItem => item.Artist)</span>
                                                 </div>
@@ -122,19 +112,10 @@
                                 </colgroup>
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th>
-                                            Song
-                                        </th>
-                                        <th class="hide-below-md">
-                                            @Html.DisplayNameFor(model => model.Songs[0].Album)
-                                        </th>
-                                        <th class="text-center hide-below-sm">
-                                            @Html.DisplayNameFor(model => model.Songs[0].Duration)
-                                        </th>
-                                        <th class="text-center">
-                                            @Html.DisplayNameFor(model => model.Songs[0].Price)
-                                        </th>
+                                        <th colspan="2">Song</th>
+                                        <th class="hide-below-md">Album</th>
+                                        <th class="text-center hide-below-sm">Duration</th>
+                                        <th class="text-center">Price</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -144,7 +125,7 @@
                                         <tr>
                                             <td class="position-relative">
                                                 <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    <img class="img-fluid" src="@item.Picture" alt="@item.Title" loading="lazy" width="75" height="75" />
+                                                    <img class="img-fluid rounded" src="@item.Picture" alt="@item.Title" loading="lazy" width="75" height="75" />
                                                 </a>
                                             </td>
                                             <td class="position-relative">
@@ -163,25 +144,44 @@
                                                     @Html.DisplayFor(modelItem => item.DurationDisplay)
                                                 </a>
                                             </td>
-                                            <td class="text-center position-relative">
-                                                <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none price-highlight">
-                                                    @Html.DisplayFor(modelItem => item.Price)
-                                                </a>
-                                            </td>
-                                            <td class="text-center">
-                                                @if (isAdmin)
+                                            @if (!isAdmin)
+                                            {
+                                                if (Model.OwnedSongIds.Contains(item.Id))
                                                 {
-                                                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
-                                                        <span class="bi bi-trash"></span>
-                                                    </a>
+                                                    <td colspan="2" class="text-center position-relative">
+                                                        <div class="owned-chip">
+                                                            Owned
+                                                        </div>
+                                                    </td>
                                                 }
                                                 else
                                                 {
-                                                    <a asp-page="/ShoppingCart" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
-                                                        <span class="bi bi-cart4 btn-icon"></span>
-                                                    </a>
+                                                    <td class="text-center position-relative">
+                                                        <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
+                                                            @Html.DisplayFor(modelItem => item.Price)
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a asp-page="/ShoppingCart" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
+                                                            <span class="bi bi-cart4 btn-icon"></span>
+                                                        </a>
+                                                    </td>
                                                 }
-                                            </td>
+
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center position-relative">
+                                                    <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
+                                                        @Html.DisplayFor(modelItem => item.Price)
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                                                        <span class="bi bi-trash"></span>
+                                                    </a>
+                                                </td>
+                                            }
                                         </tr>
                                     }
                                 </tbody>
@@ -203,24 +203,12 @@
                                 </colgroup>
                                 <thead>
                                     <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Songs[0].Title)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Songs[0].Artist)
-                                        </th>
-                                        <th class="hide-below-md">
-                                            @Html.DisplayNameFor(model => model.Songs[0].Album)
-                                        </th>
-                                        <th class="hide-below-lg">
-                                            @Html.DisplayNameFor(model => model.Songs[0].ReleaseDate)
-                                        </th>
-                                        <th class="text-center hide-below-sm">
-                                            @Html.DisplayNameFor(model => model.Songs[0].Duration)
-                                        </th>
-                                        <th class="text-center">
-                                            @Html.DisplayNameFor(model => model.Songs[0].Price)
-                                        </th>
+                                        <th>Title</th>
+                                        <th>Artist</th>
+                                        <th class="hide-below-md">Album</th>
+                                        <th class="hide-below-lg">Release Date</th>
+                                        <th class="text-center hide-below-sm">Duration</th>
+                                        <th class="text-center">Price</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -253,25 +241,36 @@
                                                     @Html.DisplayFor(modelItem => item.DurationDisplay)
                                                 </a>
                                             </td>
-                                            <td class="text-center position-relative">
-                                                <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
-                                                    @Html.DisplayFor(modelItem => item.Price)
-                                                </a>
-                                            </td>
-                                            <td class="text-center">
-                                                @if (isAdmin)
-                                                {
-                                                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
-                                                        <span class="bi bi-trash"></span>
+                                            @if (!isAdmin && Model.OwnedSongIds.Contains(item.Id))
+                                            {
+                                                <td colspan="2" class="text-center position-relative">
+                                                    <div class="owned-chip">
+                                                        Owned
+                                                    </div>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center position-relative">
+                                                    <a asp-page="./Details" asp-route-id="@item.Id" class="stretched-link text-reset text-decoration-none">
+                                                        @Html.DisplayFor(modelItem => item.Price)
                                                     </a>
-                                                }
-                                                else
-                                                {
-                                                    <a asp-page="/ShoppingCart" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
-                                                        <span class="bi bi-cart4 btn-icon"></span>
-                                                    </a>
-                                                }
-                                            </td>
+                                                </td>
+                                                <td class="text-center">
+                                                    @if (isAdmin)
+                                                    {
+                                                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                                                            <span class="bi bi-trash"></span>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a asp-page="/ShoppingCart" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
+                                                            <span class="bi bi-cart4 btn-icon"></span>
+                                                        </a>
+                                                    }
+                                                </td>
+                                            }
                                         </tr>
                                     }
                                 </tbody>
@@ -280,7 +279,49 @@
                         break;
                 }
             </div>
-            <div class="card-footer">
+            <div class="card-footer d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="small">
+                    Page @Model.PageNumber of @Model.TotalPages (@Model.TotalItems items)
+                </div>
+
+                @if (Model.TotalPages > 1)
+                {
+                    Dictionary<string, string> SendVariables(int pageNumber) => new()
+                    {
+                        ["style"] = Model.ListStyle.ToString(),
+                        ["search"] = Model.Search ?? string.Empty,
+                        ["pageNumber"] = pageNumber.ToString()
+                    };
+
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            @* First *@
+                            <li class="page-item">
+                                <a class="page-link" asp-page="./View" asp-all-route-data="@(SendVariables(1))">
+                                    <span class="bi bi-chevron-double-left"></span>
+                                </a>
+                            </li>
+                            @* Prev *@
+                            <li class="page-item">
+                                <a class="page-link" asp-page="./View" asp-all-route-data="@(SendVariables(Model.PageNumber - 1))">
+                                    <span class="bi bi-chevron-left"></span>
+                                </a>
+                            </li>
+                            @* Next *@
+                            <li class="page-item">
+                                <a class="page-link" asp-page="./View" asp-all-route-data="@(SendVariables(Model.PageNumber + 1))">
+                                    <span class="bi bi-chevron-right"></span>
+                                </a>
+                            </li>
+                            @* Last *@
+                            <li class="page-item">
+                                <a class="page-link" asp-page="./View" asp-all-route-data="@(SendVariables(Model.TotalPages))">
+                                    <span class="bi bi-chevron-double-right"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                }
             </div>
         </div>
     </div>

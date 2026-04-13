@@ -42,6 +42,9 @@
                                         @Html.DisplayFor(modelItem => item.Name)
                                     </td>
                                     <td class="text-end">
+                                        <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary me-1">
+                                            <span class="bi bi-pencil-square btn-icon"></span>
+                                        </a>
                                         <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
                                             <span class="bi bi-trash"></span>
                                         </a>

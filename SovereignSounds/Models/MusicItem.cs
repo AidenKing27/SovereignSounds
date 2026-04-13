@@ -32,5 +32,5 @@ public abstract class MusicItem
     [Display(Name = "Cover Art")]
     public string Picture { get; set; } = string.Empty;
 
-    public List<OrderHistory> OrderHistories { get; set; } = new();
+    public List<OrderItem> AllOrders { get; set; } = new();
 }

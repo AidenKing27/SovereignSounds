@@ -3,23 +3,26 @@
 @inject SignInManager<IdentityUser> SignInManager
 @{
     ViewData["Title"] = $"{Model.Song.Title} Details";
-    var isAdmin = User.IsInRole("Admin");
-    var isAuthenticated = SignInManager.IsSignedIn(User);
+    bool isAdmin = User.IsInRole("Admin");
+    bool isAuthenticated = SignInManager.IsSignedIn(User);
 }
 
 <div class="card shadow">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center flex-wrap p-2 gap-2">
             <div>
-                <h1 class="mb-1 d-flex align-items-center gap-2">@Model.Song.Title - @Model.Song.Artist</h1>
+                <h1 class="mb-1 d-flex align-items-center gap-2">
+                    <span>@Model.Song.Artist - @Model.Song.Title</span>
+                    @if (Model.IsOwned)
+                    {
+                        <span class="owned-chip owned-chip-header">Owned</span>
+                    }
+                </h1>
             </div>
-            @if (isAuthenticated)
-            {
-                <a asp-page="/ShoppingCart" asp-route-id="@Model.Song.Id" class="btn btn-primary mt-2 mb-2">
-                    <span class="bi bi-plus-lg me-2 btn-icon"></span>
-                    Add to Cart
-                </a>
-            }
+            <a asp-page="/ShoppingCart" asp-route-id="@Model.Song.Id" class="btn btn-primary mt-2 mb-2">
+                <span class="bi bi-cart4 me-2 btn-icon"></span>
+                Add to Cart
+            </a>
         </div>
     </div>
     <div class="card-body">

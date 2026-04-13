@@ -17,7 +17,9 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Genre> Genres { get; set; }
 
     public DbSet<Customer> Customers { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<OrderHistory> OrderHistories { get; set; }
+    public DbSet<OwnedItem> OwnedItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -29,15 +31,14 @@ public class ApplicationDbContext : IdentityDbContext
             .HasValue<Song>("Song")
             .HasValue<Album>("Album");
 
-        // Configure currency precision for product price values
+        // Configure currency precision
         builder.Entity<MusicItem>()
             .Property(mi => mi.Price)
             .HasPrecision(18, 2);
 
-        // Configure currency precision for purchase-time snapshot values
-        builder.Entity<OrderHistory>()
-            .Property(oh => oh.PurchasePrice)
-            .HasPrecision(18, 2);
+        // Speed up indexing
+        builder.Entity<MusicItem>()
+            .HasIndex(mi => new { mi.Title, mi.Artist });
 
         // Album <-> Genre many-to-many mapping using join table GenreAlbum
         builder.Entity<Album>()
@@ -70,11 +71,52 @@ public class ApplicationDbContext : IdentityDbContext
             .HasForeignKey(oh => oh.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // OrderHistory -> MusicItem many-to-one mapping with restricted deletes to preserve ownership history
+        // OrderHistory -> OrderItem one-to-many mapping
         builder.Entity<OrderHistory>()
-            .HasOne(oh => oh.MusicItem)
-            .WithMany(mi => mi.OrderHistories)
-            .HasForeignKey(oh => oh.MusicItemId)
+            .HasMany(oh => oh.Items)
+            .WithOne(oi => oi.Order)
+            .HasForeignKey(oi => oi.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // OrderItem -> MusicItem many-to-one mapping with restricted deletes to preserve purchase records
+        builder.Entity<OrderItem>()
+            .HasOne(oi => oi.MusicItem)
+            .WithMany(mi => mi.AllOrders)
+            .HasForeignKey(oi => oi.MusicItemId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        // OwnedItem -> Customer many-to-one mapping
+        builder.Entity<OwnedItem>()
+            .HasOne(oi => oi.Customer)
+            .WithMany(c => c.OwnedItems)
+            .HasForeignKey(oi => oi.CustomerId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // OwnedItem -> MusicItem many-to-one mapping
+        builder.Entity<OwnedItem>()
+            .HasOne(oi => oi.MusicItem)
+            .WithMany()
+            .HasForeignKey(oi => oi.MusicItemId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Prevent duplicate ownership rows per customer/music item
+        builder.Entity<OwnedItem>()
+            .HasIndex(oi => new { oi.CustomerId, oi.MusicItemId })
+            .IsUnique();
+
+        // Configure currency precision
+        builder.Entity<OrderItem>()
+            .Property(oi => oi.PurchasePrice)
+            .HasPrecision(18, 2);
+
+        // Configure currency precision
+        builder.Entity<OrderHistory>()
+            .Property(oh => oh.CartTotal)
+            .HasPrecision(18, 2);
+
+        builder.Entity<OrderHistory>()
+            .Property(oh => oh.GrandTotal)
+            .HasPrecision(18, 2);
+
     }
 }

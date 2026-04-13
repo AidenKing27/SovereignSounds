@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using SovereignSounds.Models;
 
 namespace SovereignSounds.Pages;
 
+[Authorize(Roles = "User,Admin")]
 public class ShoppingCartModel : PageModel
 {
     private readonly ApplicationDbContext _context;
@@ -16,15 +18,14 @@ public class ShoppingCartModel : PageModel
         _context = context;
     }
 
-    public List<MusicItemDto> Cart { get; set; } = default!;
+    public List<MusicItemDto> Cart { get; set; } = [];
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
+        Cart = [];
         var sessionCart = HttpContext.Session.GetString("Cart");
         if (sessionCart is not null)
             Cart = JsonConvert.DeserializeObject<List<MusicItemDto>>(sessionCart)!;
-        else
-            Cart = new List<MusicItemDto>();
 
         if (id is null)
             return Page();
@@ -79,5 +80,23 @@ public class ShoppingCartModel : PageModel
         }
 
         return Page();
+    }
+
+    public IActionResult OnPostRemoveFromCart(int? id)
+    {
+        Cart = [];
+        var sessionCart = HttpContext.Session.GetString("Cart");
+        if (sessionCart is not null)
+            Cart = JsonConvert.DeserializeObject<List<MusicItemDto>>(sessionCart)!;
+
+        MusicItemDto? musicItem = Cart.FirstOrDefault(mi => mi.Id == id);
+
+        if (musicItem is not null)
+        {
+            Cart.Remove(musicItem);
+            HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(Cart));
+        }
+
+        return RedirectToPage();
     }
 }

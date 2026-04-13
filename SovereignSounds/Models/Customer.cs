@@ -10,4 +10,5 @@ public class Customer
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public List<OrderHistory> OrderHistories { get; set; } = new();
+    public List<OwnedItem> OwnedItems { get; set; } = new();
 }

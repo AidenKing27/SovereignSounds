@@ -2,7 +2,7 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
+<ul class="navbar-nav flex-row flex-sm-row align-items-center gap-2 mt-2 mt-sm-0">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">

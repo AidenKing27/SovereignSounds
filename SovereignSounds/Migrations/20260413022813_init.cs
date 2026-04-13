@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SovereignSounds.Migrations
 {
     /// <inheritdoc />
-    public partial class newtables : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -270,8 +270,6 @@ namespace SovereignSounds.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
-                    MusicItemId = table.Column<int>(type: "int", nullable: false),
-                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -283,12 +281,60 @@ namespace SovereignSounds.Migrations
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OwnedItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    MusicItemId = table.Column<int>(type: "int", nullable: false),
+                    AcquiredDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OwnedItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderHistories_MusicItems_MusicItemId",
+                        name: "FK_OwnedItems_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OwnedItems_MusicItems_MusicItemId",
                         column: x => x.MusicItemId,
                         principalTable: "MusicItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MusicItemId = table.Column<int>(type: "int", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_MusicItems_MusicItemId",
+                        column: x => x.MusicItemId,
+                        principalTable: "MusicItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_OrderHistories_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "OrderHistories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -352,13 +398,34 @@ namespace SovereignSounds.Migrations
                 column: "AlbumId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MusicItems_Title_Artist",
+                table: "MusicItems",
+                columns: new[] { "Title", "Artist" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderHistories_CustomerId",
                 table: "OrderHistories",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderHistories_MusicItemId",
-                table: "OrderHistories",
+                name: "IX_OrderItems_MusicItemId",
+                table: "OrderItems",
+                column: "MusicItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_OrderId",
+                table: "OrderItems",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OwnedItems_CustomerId_MusicItemId",
+                table: "OwnedItems",
+                columns: new[] { "CustomerId", "MusicItemId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OwnedItems_MusicItemId",
+                table: "OwnedItems",
                 column: "MusicItemId");
         }
 
@@ -387,7 +454,10 @@ namespace SovereignSounds.Migrations
                 name: "GenreSong");
 
             migrationBuilder.DropTable(
-                name: "OrderHistories");
+                name: "OrderItems");
+
+            migrationBuilder.DropTable(
+                name: "OwnedItems");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -396,10 +466,13 @@ namespace SovereignSounds.Migrations
                 name: "Genres");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "OrderHistories");
 
             migrationBuilder.DropTable(
                 name: "MusicItems");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

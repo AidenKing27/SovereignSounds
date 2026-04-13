@@ -66,7 +66,7 @@ namespace SovereignSounds.Pages.Music.Albums
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./View");
         }
 
         private bool AlbumExists(int id)

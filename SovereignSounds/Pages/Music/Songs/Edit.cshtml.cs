@@ -36,7 +36,8 @@ namespace SovereignSounds.Pages.Music.Songs
                 return NotFound();
             }
             Song = song;
-           ViewData["AlbumId"] = new SelectList(_context.Albums, "Id", "Artist");
+            Song.DurationInput = Song.Duration.ToString(@"mm\:ss");
+            PopulateAlbumSelectList();
             return Page();
         }
 
@@ -46,8 +47,18 @@ namespace SovereignSounds.Pages.Music.Songs
         {
             if (!ModelState.IsValid)
             {
+                PopulateAlbumSelectList();
                 return Page();
             }
+
+            if (!TryParseDurationInput(Song.DurationInput, out var duration))
+            {
+                ModelState.AddModelError("Song.DurationInput", "Song Duration must match: 3:15, 03:15, 12:00, 0:59");
+                PopulateAlbumSelectList();
+                return Page();
+            }
+
+            Song.Duration = duration;
 
             _context.Attach(Song).State = EntityState.Modified;
 
@@ -67,12 +78,30 @@ namespace SovereignSounds.Pages.Music.Songs
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./View");
         }
 
         private bool SongExists(int id)
         {
             return _context.Songs.Any(e => e.Id == id);
+        }
+
+        private void PopulateAlbumSelectList()
+        {
+            ViewData["AlbumId"] = new SelectList(_context.Albums, "Id", "Artist");
+        }
+
+        private static bool TryParseDurationInput(string? durationInput, out TimeSpan duration)
+        {
+            duration = TimeSpan.Zero;
+
+            if (string.IsNullOrWhiteSpace(durationInput))
+            {
+                return false;
+            }
+
+            return TimeSpan.TryParseExact(durationInput, @"m\:ss", null, out duration)
+                || TimeSpan.TryParseExact(durationInput, @"mm\:ss", null, out duration);
         }
     }
 }
