@@ -12,8 +12,8 @@ using SovereignSounds.Data;
 namespace SovereignSounds.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260413072231_totals")]
-    partial class totals
+    [Migration("20260413075453_done")]
+    partial class done
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -365,6 +365,10 @@ namespace SovereignSounds.Migrations
 
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ShippingAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
